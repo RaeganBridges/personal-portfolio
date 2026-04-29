@@ -186,7 +186,7 @@ section {
   width: 100%;
   height: calc(var(--strip-h) + var(--strip-offset));
   min-height: calc(280px + var(--strip-offset));
-  /* Slant opposite to before: top falls left-to-right → now rises (right side sits higher). */
+  /* Straight parallelogram; js/work-strip-wave.js upgrades to a subtle wave when supported. */
   clip-path: polygon(
     0 var(--strip-offset),
     100% 0,
