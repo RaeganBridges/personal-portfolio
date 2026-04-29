@@ -230,6 +230,7 @@ section {
   background-size: cover;
   background-position: center;
   position: relative;
+  filter: brightness(1.05);
   transition: filter 0.3s;
 }
 
@@ -237,28 +238,31 @@ section {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    105deg,
-    color-mix(in srgb, var(--bg) 75%, transparent) 0%,
-    color-mix(in srgb, var(--bg) 35%, transparent) 50%,
-    color-mix(in srgb, var(--bg) 55%, transparent) 100%
-  );
-  z-index: 0;
-}
-
-.work-strip a:hover::before,
-.work-strip a:focus-visible::before {
+  /* Default = previously “hover”: lighter scrim, image reads brighter */
   background: linear-gradient(
     105deg,
     color-mix(in srgb, var(--bg) 65%, transparent) 0%,
     color-mix(in srgb, var(--bg) 25%, transparent) 55%,
     color-mix(in srgb, var(--bg) 45%, transparent) 100%
   );
+  transition: background 0.3s;
+  z-index: 0;
+}
+
+.work-strip a:hover::before,
+.work-strip a:focus-visible::before {
+  /* Hover = previously default: heavier scrim */
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, var(--bg) 75%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 35%, transparent) 50%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 100%
+  );
 }
 
 .work-strip a:hover,
 .work-strip a:focus-visible {
-  filter: brightness(1.05);
+  filter: brightness(1);
 }
 
 .work-strip a:focus-visible {
@@ -299,18 +303,20 @@ section {
   flex-shrink: 0;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid color-mix(in srgb, var(--text) 35%, transparent);
+  border: 1px solid var(--accent);
   border-radius: 50%;
   display: grid;
   place-items: center;
   font-size: 1.1rem;
   color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
   transition: border-color 0.2s, background 0.2s;
 }
 
-.work-strip a:hover .work-strip__arrow {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
+.work-strip a:hover .work-strip__arrow,
+.work-strip a:focus-visible .work-strip__arrow {
+  border-color: color-mix(in srgb, var(--text) 35%, transparent);
+  background: transparent;
 }
 
 /* Per-project strip imagery (subtle gradients + optional image) */
