@@ -1,0 +1,484 @@
+/* Graphic designer portfolio — responsive layout & trapezoid works strips */
+
+:root {
+  --bg: #0f0f0f;
+  --surface: #1a1a1a;
+  --text: #f5f5f0;
+  --text-muted: #a8a8a0;
+  --accent: #e8c547;
+  --accent-soft: #c4a035;
+  --nav-h: 4rem;
+  --strip-angle: 10deg;
+  --strip-tan: tan(var(--strip-angle));
+  --strip-h: 50vh;
+  --strip-offset: calc(100vw * var(--strip-tan));
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+}
+
+/* ——— Nav tabs ——— */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 1.5rem;
+  min-height: var(--nav-h);
+  padding: 0.75rem 1.25rem;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.site-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35em 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
+.site-nav a:focus-visible {
+  border-bottom-color: var(--accent);
+}
+
+/* ——— Sections ——— */
+section {
+  position: relative;
+}
+
+.section-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* ——— Home / cover ——— */
+#home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--nav-h) + 2rem) 1.5rem 3rem;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 20%, color-mix(in srgb, var(--accent) 12%, transparent), transparent),
+    var(--bg);
+}
+
+.hero {
+  text-align: center;
+  max-width: 40rem;
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: 1.1;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  color: var(--text-muted);
+  margin: 0 0 2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.hero-cta {
+  display: inline-block;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.85em 1.75em;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hero-cta:hover {
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+
+/* ——— Works ——— */
+#works {
+  padding: 0;
+  overflow: hidden;
+}
+
+.works-intro {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2.5rem) 2rem;
+}
+
+.works-intro h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 0.5rem;
+}
+
+.works-intro p {
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 36rem;
+}
+
+/*
+ * Parallelogram strips (reference: stacked label rows): vertical left/right edges,
+ * top & bottom parallel at --strip-angle to horizontal. Each box is strip-h tall on the left edge;
+ * layout height includes strip-offset so the clip fits; negative margin interlocks with the next row.
+ */
+.works-strips {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.work-strip {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: calc(var(--strip-h) + var(--strip-offset));
+  min-height: calc(280px + var(--strip-offset));
+  /* Slant opposite to before: top falls left-to-right → now rises (right side sits higher). */
+  clip-path: polygon(
+    0 var(--strip-offset),
+    100% 0,
+    100% var(--strip-h),
+    0 calc(var(--strip-offset) + var(--strip-h))
+  );
+  /* Pull next strip up so its top edge meets this strip’s bottom edge (same slant). */
+  margin-bottom: calc(-1 * var(--strip-offset));
+}
+
+.work-strip:nth-child(1) {
+  z-index: 1;
+}
+.work-strip:nth-child(2) {
+  z-index: 2;
+}
+.work-strip:nth-child(3) {
+  z-index: 3;
+}
+.work-strip:nth-child(4) {
+  z-index: 4;
+}
+.work-strip:nth-child(5) {
+  z-index: 5;
+}
+
+.work-strip:last-child {
+  margin-bottom: 0;
+}
+
+.work-strip a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  height: 100%;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 5vw, 4rem);
+  text-decoration: none;
+  color: inherit;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  transition: filter 0.3s;
+}
+
+.work-strip a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, var(--bg) 75%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 35%, transparent) 50%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 100%
+  );
+  z-index: 0;
+}
+
+.work-strip a:hover::before,
+.work-strip a:focus-visible::before {
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, var(--bg) 65%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 25%, transparent) 55%,
+    color-mix(in srgb, var(--bg) 45%, transparent) 100%
+  );
+}
+
+.work-strip a:hover,
+.work-strip a:focus-visible {
+  filter: brightness(1.05);
+}
+
+.work-strip a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+  z-index: 1;
+}
+
+.work-strip__content {
+  position: relative;
+  z-index: 1;
+  max-width: min(32rem, 85%);
+}
+
+.work-strip__index {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.work-strip__title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin: 0 0 0.5rem;
+  line-height: 1.15;
+}
+
+.work-strip__meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.work-strip__arrow {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid color-mix(in srgb, var(--text) 35%, transparent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  color: var(--accent);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.work-strip a:hover .work-strip__arrow {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+/* Per-project strip imagery (subtle gradients + optional image) */
+.work-strip--1 a {
+  background-color: #2d2438;
+  background-image: url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&q=80");
+}
+
+.work-strip--2 a {
+  background-color: #1e2d2a;
+  background-image: url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80");
+}
+
+.work-strip--3 a {
+  background-color: #3d4a38;
+  background-image: url("../assets/field-label-reference.png");
+}
+
+.work-strip--4 a {
+  background-color: #242830;
+  background-image: url("https://images.unsplash.com/photo-1634942537034-2531766767d8?w=1600&q=80");
+}
+
+.work-strip--5 a {
+  background-color: #2d2028;
+  background-image: url("https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1600&q=80");
+}
+
+/* ——— About ——— */
+#about {
+  background: var(--surface);
+  border-top: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
+}
+
+#about h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 1.5rem;
+}
+
+#about .lead {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 40rem;
+  margin: 0 0 1.5rem;
+}
+
+#about ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  max-width: 32rem;
+}
+
+#about li {
+  padding-left: 1.25rem;
+  position: relative;
+  color: var(--text-muted);
+}
+
+#about li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+/* ——— Contact ——— */
+#contact {
+  padding-bottom: clamp(4rem, 12vw, 8rem);
+}
+
+#contact h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 1rem;
+}
+
+#contact p {
+  color: var(--text-muted);
+  max-width: 36rem;
+  margin: 0 0 2rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+}
+
+.contact-links a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.contact-links a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* ——— Project detail pages ——— */
+.project-page {
+  min-height: 100vh;
+  padding: calc(var(--nav-h) + 2rem) clamp(1.25rem, 4vw, 2.5rem) 4rem;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.project-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+.project-back:hover {
+  color: var(--accent);
+}
+
+.project-page h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  margin: 0 0 0.5rem;
+  line-height: 1.15;
+}
+
+.project-page .project-meta {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 2rem;
+}
+
+.project-hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+.project-page .body-text {
+  color: var(--text-muted);
+}
+
+.project-page .body-text p {
+  margin: 0 0 1.25rem;
+}
+
+.project-page .body-text h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.35rem;
+  color: var(--text);
+  margin: 2rem 0 0.75rem;
+}
