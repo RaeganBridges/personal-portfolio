@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Studio North — Graphic Design Portfolio</title>
+    <link rel="icon" href="images/logo/LOGOMARK.png" type="image/png" />
+    <link rel="apple-touch-icon" href="images/logo/LOGOMARK.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,21 +17,27 @@
   </head>
   <body>
     <nav class="site-nav" aria-label="Primary">
-      <a href="#home">Home</a>
-      <a href="#works">Works</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a class="site-nav__brand" href="#home">
+        <img src="images/logo/LOGOMARK.png" alt="Studio North" width="72" height="72" decoding="async" />
+      </a>
+      <div class="site-nav__links">
+        <a href="#home">Home</a>
+        <a href="#works">Works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
     </nav>
 
     <section id="home" aria-label="Cover">
       <div class="hero">
-        <p class="hero-eyebrow">Graphic design &amp; visual systems</p>
-        <h1>Clarity through craft</h1>
-        <p>
-          Brand identities, editorial layouts, and campaign art direction for clients who
-          value restraint, typography, and bold, considered color.
-        </p>
-        <a class="hero-cta" href="#works">View selected works</a>
+        <img
+          class="hero-wordmark"
+          src="images/logo/name.png"
+          alt="Studio North"
+          width="640"
+          height="200"
+          decoding="async"
+        />
       </div>
     </section>
 

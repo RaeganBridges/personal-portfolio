@@ -1,12 +1,32 @@
 /* Graphic designer portfolio — responsive layout & trapezoid works strips */
 
 :root {
-  --bg: #0f0f0f;
-  --surface: #1a1a1a;
-  --text: #f5f5f0;
-  --text-muted: #a8a8a0;
-  --accent: #e8c547;
-  --accent-soft: #c4a035;
+  /* Brand palette: navy · sky · light blues · off-white · magenta · charcoal */
+  --navy: #0a2463;
+  --sky: #3e92cc;
+  --sky-light: #6eb0dc;
+  --sky-lighter: #a3cfe9;
+  --sky-pale: #dcecf7;
+  --sky-mist: #eef6fc;
+  --cream: #fffaff;
+  --magenta: #d8315b;
+  --pink-rose: #e0456f;
+  --pink-light: #eb6b8f;
+  --pink-lighter: #f4a3b8;
+  --pink-pale: #fcd8e2;
+  --pink-mist: #fff5f8;
+  --charcoal: #1e1b18;
+  --bg: var(--charcoal);
+  --surface: var(--navy);
+  --text: var(--cream);
+  --text-muted: color-mix(in srgb, var(--cream) 62%, var(--sky-lighter) 38%);
+  --accent: var(--sky);
+  --accent-soft: color-mix(in srgb, var(--sky) 78%, var(--charcoal));
+  --accent-pink: var(--magenta);
+  --tone-deep: var(--charcoal);
+  --tone-mid: var(--navy);
+  /* Hero + Works section fill: deep saturated blue (not the old pale sky wash). */
+  --hero-works-surface: color-mix(in srgb, var(--navy) 58%, var(--sky) 42%);
   --nav-h: 4rem;
   --strip-angle: 10deg;
   --strip-tan: tan(var(--strip-angle));
@@ -24,11 +44,27 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-h);
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
+  max-width: 100%;
   background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% 0%, color-mix(in srgb, var(--sky-light) 16%, transparent), transparent 55%),
+    radial-gradient(ellipse 90% 70% at 100% 100%, color-mix(in srgb, var(--pink-light) 12%, transparent), transparent 50%),
+    radial-gradient(ellipse 70% 60% at 0% 85%, color-mix(in srgb, var(--pink-lighter) 10%, transparent), transparent 45%),
+    linear-gradient(
+      180deg,
+      var(--tone-deep) 0%,
+      color-mix(in srgb, var(--tone-mid) 92%, var(--sky-light) 8%) 38%,
+      color-mix(in srgb, var(--tone-mid) 85%, color-mix(in srgb, var(--sky-lighter) 70%, var(--pink-pale) 30%) 15%) 52%,
+      color-mix(in srgb, var(--tone-deep) 94%, var(--pink-rose) 6%) 100%
+    );
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.6;
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
@@ -44,16 +80,52 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 0.25rem 1.5rem;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
   min-height: var(--nav-h);
-  padding: 0.75rem 1.25rem;
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  padding: 0.75rem clamp(1rem, 3vw, 1.5rem);
+  background: color-mix(
+    in srgb,
+    var(--bg) 84%,
+    color-mix(in srgb, var(--sky) 7%, color-mix(in srgb, var(--pink-pale) 55%, var(--sky-pale)))
+  );
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, color-mix(in srgb, var(--sky-lighter) 55%, var(--pink-lighter)) 28%, transparent);
 }
 
-.site-nav a {
+.site-nav__brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.site-nav__brand img {
+  display: block;
+  height: clamp(1.75rem, 4vw, 2.25rem);
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  /* Render logomark as white on the dark nav bar */
+  filter: brightness(0) invert(1);
+}
+
+.site-nav__brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.site-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem 1.5rem;
+}
+
+.site-nav__links a {
   color: var(--text-muted);
   text-decoration: none;
   font-size: 0.8125rem;
@@ -65,14 +137,15 @@ body {
   transition: color 0.2s, border-color 0.2s;
 }
 
-.site-nav a:hover,
-.site-nav a:focus-visible {
-  color: var(--accent);
+.site-nav__links a:hover {
+  color: var(--pink-light);
   outline: none;
 }
 
-.site-nav a:focus-visible {
-  border-bottom-color: var(--accent);
+.site-nav__links a:focus-visible {
+  color: var(--accent);
+  outline: none;
+  border-bottom-color: var(--pink-rose);
 }
 
 /* ——— Sections ——— */
@@ -88,73 +161,110 @@ section {
 
 /* ——— Home / cover ——— */
 #home {
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--nav-h) + 2rem) 1.5rem 3rem;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 20%, color-mix(in srgb, var(--accent) 12%, transparent), transparent),
-    var(--bg);
+  box-sizing: border-box;
+  padding: calc(var(--nav-h) + 1.25rem) clamp(1rem, 4vw, 2rem)
+    calc(var(--nav-h) + 1.25rem + clamp(5rem, 22vh, 14rem));
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--hero-works-surface);
+}
+
+/* Lower band only — avoids tall PNG + full-height layer hiding position changes. */
+#home::after {
+  content: "";
+  position: absolute;
+  top: 60%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      color-mix(in srgb, var(--navy) 70%, transparent) 0%,
+      color-mix(in srgb, var(--navy) 70%, transparent) 100%
+    ),
+    url("../images/logo/BRIDGE.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center top;
+  background-size: 100% auto, 100% auto;
+  background-blend-mode: multiply, normal;
 }
 
 .hero {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  max-width: 40rem;
+  width: 100%;
+  max-width: min(98vw, 88rem);
+  margin-inline: auto;
 }
 
-.hero-eyebrow {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
+.hero-wordmark {
+  display: block;
+  width: min(98vw, 82rem);
+  max-width: 100%;
+  max-height: min(62vh, 44rem);
+  height: auto;
+  margin-inline: auto;
+  margin-top: clamp(2.5rem, 10vh, 7rem);
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
-.hero h1 {
-  font-family: "Fraunces", Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  line-height: 1.1;
-  margin: 0 0 1rem;
-  letter-spacing: -0.02em;
-}
-
-.hero p {
-  color: var(--text-muted);
-  margin: 0 0 2rem;
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-}
-
-.hero-cta {
-  display: inline-block;
-  color: var(--bg);
-  background: var(--accent);
-  padding: 0.85em 1.75em;
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.hero-cta:hover {
-  background: var(--accent-soft);
-  transform: translateY(-2px);
+/* Works: bridge-legs band pinned to section top (short box so bg isn’t vertically centered in tall #works). */
+#works::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  padding-bottom: 35%;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      color-mix(in srgb, var(--navy) 70%, transparent) 0%,
+      color-mix(in srgb, var(--navy) 70%, transparent) 100%
+    ),
+    url("../images/logo/BRIDGE-LEGS.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center top;
+  background-size: 100% auto, 100% auto;
+  background-blend-mode: multiply, normal;
+  overflow: hidden;
 }
 
 /* ——— Works ——— */
 #works {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
   padding: 0;
-  overflow: hidden;
+  overflow: visible;
+  box-sizing: border-box;
+  background-color: var(--hero-works-surface);
 }
 
 .works-intro {
+  position: relative;
+  z-index: 2;
   max-width: 72rem;
   margin: 0 auto;
-  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2.5rem) 2rem;
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2rem);
 }
 
 .works-intro h2 {
@@ -163,10 +273,18 @@ section {
   margin: 0 0 0.5rem;
 }
 
+#works .works-intro h2 {
+  color: var(--cream);
+}
+
 .works-intro p {
   color: var(--text-muted);
   margin: 0;
   max-width: 36rem;
+}
+
+#works .works-intro p {
+  color: color-mix(in srgb, var(--cream) 78%, var(--sky-lighter) 22%);
 }
 
 /*
@@ -175,15 +293,19 @@ section {
  * layout height includes strip-offset so the clip fits; negative margin interlocks with the next row.
  */
 .works-strips {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 0;
+  overflow-x: clip;
 }
 
 .work-strip {
   position: relative;
   z-index: 0;
   width: 100%;
+  max-width: 100%;
   height: calc(var(--strip-h) + var(--strip-offset));
   min-height: calc(280px + var(--strip-offset));
   /* Straight parallelogram; js/work-strip-wave.js upgrades to a subtle wave when supported. */
@@ -227,11 +349,34 @@ section {
   padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 5vw, 4rem);
   text-decoration: none;
   color: inherit;
-  background-size: cover;
+  background-color: var(--navy);
+  background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
   position: relative;
   filter: brightness(1.05);
   transition: filter 0.3s;
+}
+
+/* Placeholder art per strip (swap paths for real project hero shots) */
+.work-strip--1 a {
+  background-image: url("../images/works/strip-01.svg");
+}
+
+.work-strip--2 a {
+  background-image: url("../images/works/strip-02.svg");
+}
+
+.work-strip--3 a {
+  background-image: url("../images/works/strip-03.svg");
+}
+
+.work-strip--4 a {
+  background-image: url("../images/works/strip-04.svg");
+}
+
+.work-strip--5 a {
+  background-image: url("../images/works/strip-05.svg");
 }
 
 .work-strip a::before {
@@ -266,7 +411,7 @@ section {
 }
 
 .work-strip a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--pink-rose);
   outline-offset: -4px;
   z-index: 1;
 }
@@ -282,6 +427,10 @@ section {
   letter-spacing: 0.2em;
   color: var(--accent);
   margin-bottom: 0.35rem;
+}
+
+.work-strip:nth-child(even) .work-strip__index {
+  color: var(--pink-light);
 }
 
 .work-strip__title {
@@ -303,52 +452,37 @@ section {
   flex-shrink: 0;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 65%, var(--pink-light));
   border-radius: 50%;
   display: grid;
   place-items: center;
   font-size: 1.1rem;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  transition: border-color 0.2s, background 0.2s;
+  color: color-mix(in srgb, var(--accent) 55%, var(--pink-lighter));
+  background: color-mix(in srgb, var(--pink-rose) 12%, color-mix(in srgb, var(--accent) 10%, transparent));
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.work-strip:nth-child(even) .work-strip__arrow {
+  border-color: color-mix(in srgb, var(--pink-light) 75%, var(--accent));
+  color: var(--pink-lighter);
+  background: color-mix(in srgb, var(--pink-light) 14%, transparent);
 }
 
 .work-strip a:hover .work-strip__arrow,
 .work-strip a:focus-visible .work-strip__arrow {
   border-color: color-mix(in srgb, var(--text) 35%, transparent);
   background: transparent;
-}
-
-/* Per-project strip imagery (subtle gradients + optional image) */
-.work-strip--1 a {
-  background-color: #2d2438;
-  background-image: url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&q=80");
-}
-
-.work-strip--2 a {
-  background-color: #1e2d2a;
-  background-image: url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80");
-}
-
-.work-strip--3 a {
-  background-color: #3d4a38;
-  background-image: url("../assets/field-label-reference.png");
-}
-
-.work-strip--4 a {
-  background-color: #242830;
-  background-image: url("https://images.unsplash.com/photo-1634942537034-2531766767d8?w=1600&q=80");
-}
-
-.work-strip--5 a {
-  background-color: #2d2028;
-  background-image: url("https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1600&q=80");
+  color: var(--text-muted);
 }
 
 /* ——— About ——— */
 #about {
-  background: var(--surface);
-  border-top: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface) 93%, color-mix(in srgb, var(--sky-light) 65%, var(--pink-pale))) 0%,
+    var(--surface) 100%
+  );
+  border-top: 1px solid color-mix(in srgb, color-mix(in srgb, var(--sky-lighter) 50%, var(--pink-lighter)) 22%, transparent);
 }
 
 #about h2 {
@@ -386,7 +520,7 @@ section {
   top: 0.55em;
   width: 6px;
   height: 6px;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--pink-rose), var(--pink-light));
   border-radius: 1px;
   transform: rotate(45deg);
 }
@@ -394,6 +528,12 @@ section {
 /* ——— Contact ——— */
 #contact {
   padding-bottom: clamp(4rem, 12vw, 8rem);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--pink-mist) 7%, transparent) 75%,
+    color-mix(in srgb, var(--pink-pale) 5%, transparent) 100%
+  );
 }
 
 #contact h2 {
@@ -419,10 +559,12 @@ section {
   font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  transition: color 0.2s, border-color 0.2s;
 }
 
 .contact-links a:hover {
-  border-bottom-color: var(--accent);
+  color: var(--pink-rose);
+  border-bottom-color: color-mix(in srgb, var(--pink-light) 50%, transparent);
 }
 
 /* ——— Project detail pages ——— */
@@ -448,7 +590,7 @@ section {
 }
 
 .project-back:hover {
-  color: var(--accent);
+  color: var(--pink-light);
 }
 
 .project-page h1 {
@@ -472,6 +614,9 @@ section {
   background-position: center;
   border-radius: 4px;
   margin-bottom: 2rem;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pink-pale) 35%, transparent),
+    0 12px 40px color-mix(in srgb, var(--pink-rose) 8%, transparent);
 }
 
 .project-page .body-text {
