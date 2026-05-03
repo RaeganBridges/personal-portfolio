@@ -28,7 +28,7 @@
   /* Hero + Works section fill: deep saturated blue (not the old pale sky wash). */
   --hero-works-surface: color-mix(in srgb, var(--navy) 58%, var(--sky) 42%);
   --nav-h: 4rem;
-  --strip-angle: 10deg;
+  --strip-angle: 8deg;
   --strip-tan: tan(var(--strip-angle));
   --strip-h: 50vh;
   --strip-offset: calc(100vw * var(--strip-tan));
@@ -360,49 +360,40 @@ section {
 
 /* Placeholder art per strip (swap paths for real project hero shots) */
 .work-strip--1 a {
-  background-image: url("../images/works/strip-01.svg");
+  background-image: url("../images/spreads/HHC-01.png");
+  background-size: 101% auto;
+  background-position: center;
+}
+
+.work-strip--1 a:hover,
+.work-strip--1 a:focus-visible {
+  background-image: url("../videos/HCC.gif");
+  background-size: 101% auto;
+  background-position: center;
 }
 
 .work-strip--2 a {
-  background-image: url("../images/works/strip-02.svg");
+  background-image: url("../images/spreads/STRINGS.png");
+  background-size: 101% auto;
+  background-position: center;
 }
 
 .work-strip--3 a {
-  background-image: url("../images/works/strip-03.svg");
+  background-image: url("../images/spreads/CR8DIG.png");
+  background-size: 101% auto;
+  background-position: center;
 }
 
 .work-strip--4 a {
-  background-image: url("../images/works/strip-04.svg");
+  background-image: url("../images/spreads/CHERRY.png");
+  background-size: 101% auto;
+  background-position: center;
 }
 
 .work-strip--5 a {
-  background-image: url("../images/works/strip-05.svg");
-}
-
-.work-strip a::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  /* Default = previously “hover”: lighter scrim, image reads brighter */
-  background: linear-gradient(
-    105deg,
-    color-mix(in srgb, var(--bg) 65%, transparent) 0%,
-    color-mix(in srgb, var(--bg) 25%, transparent) 55%,
-    color-mix(in srgb, var(--bg) 45%, transparent) 100%
-  );
-  transition: background 0.3s;
-  z-index: 0;
-}
-
-.work-strip a:hover::before,
-.work-strip a:focus-visible::before {
-  /* Hover = previously default: heavier scrim */
-  background: linear-gradient(
-    105deg,
-    color-mix(in srgb, var(--bg) 75%, transparent) 0%,
-    color-mix(in srgb, var(--bg) 35%, transparent) 50%,
-    color-mix(in srgb, var(--bg) 55%, transparent) 100%
-  );
+  background-image: url("../images/spreads/DELIGHT.png");
+  background-size: 101% auto;
+  background-position: center;
 }
 
 .work-strip a:hover,
@@ -473,6 +464,12 @@ section {
   border-color: color-mix(in srgb, var(--text) 35%, transparent);
   background: transparent;
   color: var(--text-muted);
+}
+
+.work-strip__content,
+.work-strip__arrow {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ——— About ——— */
