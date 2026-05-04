@@ -29,7 +29,8 @@
   --hero-works-surface: color-mix(in srgb, var(--navy) 58%, var(--sky) 42%);
   /* #about (and #works lower half) solid fill */
   --about-bg: #15225d;
-  --nav-h: 4rem;
+  /* Slightly below 4rem so nav + layout match a typical local window vs wide fullscreen on gh-pages */
+  --nav-h: 3.75rem;
   --strip-angle: 8deg;
   --strip-tan: tan(var(--strip-angle));
   --strip-h: 50vh;
@@ -49,6 +50,9 @@ html {
   overflow-x: hidden;
   max-width: 100%;
   background-color: color-mix(in srgb, var(--sky-pale) 64%, var(--sky-lighter) 36%);
+  /* Avoid mobile browsers inflating type vs desktop devtools / local file preview */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -67,7 +71,8 @@ body {
   background-attachment: fixed;
   color: var(--charcoal);
   line-height: 1.6;
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  /* Tighter clamp + lower vw: wide-viewport GitHub Pages matched narrower local window */
+  font-size: clamp(0.9375rem, 0.88rem + 0.14vw, 1.05rem);
 }
 
 /* ——— Nav tabs ——— */
