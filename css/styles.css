@@ -813,7 +813,8 @@ section {
     overflow-x: hidden;
     z-index: 50;
     -webkit-overflow-scrolling: touch;
-    padding: clamp(1.25rem, 3vw, 2rem);
+    padding-top: clamp(0.45rem, 1.35vw, 0.85rem);
+    padding-inline: clamp(1.25rem, 3vw, 2rem);
     padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px));
     box-shadow: -12px 0 40px color-mix(in srgb, var(--navy) 22%, transparent);
   }
@@ -833,7 +834,9 @@ section {
     position: relative;
     width: auto;
     order: -1;
-    padding: clamp(1.25rem, 3vw, 2rem);
+    padding-top: clamp(0.5rem, 1.5vw, 1rem);
+    padding-inline: clamp(1.25rem, 3vw, 2rem);
+    padding-bottom: clamp(1.25rem, 3vw, 2rem);
     border-radius: 8px;
     overflow: visible;
     box-shadow:
@@ -855,12 +858,17 @@ section {
  * Do not use font-size: 0 on the heading — it can collapse <img> sizing in some browsers.
  */
 .project-page.project-page--split .project-split__text h1.project-split__wordmark {
-  margin: 0 0 1rem;
+  margin: -0.35rem 0 1rem;
   padding: 0;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
   line-height: normal;
+}
+
+/* HHC + Tomato: slight extra padding above the wordmark panel (set on <body>) */
+body.project-wordmark-head-space .project-split__text {
+  padding-top: clamp(0.7rem, 1.9vw, 1.2rem);
 }
 
 .project-split__text .project-split__wordmark-img {
