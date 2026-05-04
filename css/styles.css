@@ -91,6 +91,20 @@ body {
   );
   backdrop-filter: blur(12px);
   border-bottom: 1px solid color-mix(in srgb, color-mix(in srgb, var(--sky-lighter) 55%, var(--pink-lighter)) 28%, transparent);
+  transform: translateY(-100%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.site-nav.site-nav--revealed {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav {
+    transition-duration: 0.01ms;
+  }
 }
 
 .site-nav__brand {
@@ -221,6 +235,9 @@ section {
   margin-top: clamp(2.5rem, 10vh, 7rem);
   object-fit: contain;
   filter: brightness(0) invert(1);
+  /* Slightly larger without changing layout (avoids shifting #home::after bridge band) */
+  transform: scale(1.07);
+  transform-origin: center center;
 }
 
 /* Works: bridge-legs band pinned to section top (short box so bg isn’t vertically centered in tall #works). */
@@ -259,32 +276,137 @@ section {
   background-color: var(--hero-works-surface);
 }
 
-.works-intro {
+/*
+ * BRIDGE-LEGS.png: dark margins + three lighter “pillars” + dark gutters between them.
+ * Match those proportions (same as background-size: 100% wide) so copy sits on the light bands only.
+ */
+.works-bridge-head {
+  --bridge-margin: 9.6fr;
+  --bridge-pillar: 20.21fr;
+  --bridge-gutter: 10.06fr;
+
   position: relative;
   z-index: 2;
-  max-width: 72rem;
+  display: grid;
+  grid-template-columns:
+    minmax(0, var(--bridge-margin))
+    minmax(0, var(--bridge-pillar))
+    minmax(0, var(--bridge-gutter))
+    minmax(0, var(--bridge-pillar))
+    minmax(0, var(--bridge-gutter))
+    minmax(0, var(--bridge-pillar))
+    minmax(0, var(--bridge-margin));
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2rem);
+  /* Block-start pushes pillar copy lower in the bridge band; block-end before work strips. */
+  padding: clamp(3.5rem, 8vw, 5.5rem) 0 clamp(1rem, 2.5vw, 1.5rem);
+  align-items: start;
+  box-sizing: border-box;
 }
 
-.works-intro h2 {
+.works-bridge-head__pillar--works {
+  grid-column: 2;
+}
+
+.works-bridge-head__pillar--about {
+  grid-column: 4;
+}
+
+.works-bridge-head__pillar--contact {
+  grid-column: 6;
+}
+
+/*
+ * Inset from pillar edges.
+ * Strong translateY pulls Works / About / Contact up visually on the bridge art only.
+ * Transforms don’t change layout height, so .works-strips stay fixed vs the hero / top section.
+ */
+.works-bridge-head__pillar {
+  padding-inline-start: clamp(1rem, 3vw, 1.65rem);
+  padding-inline-end: clamp(0.85rem, 2.2vw, 1.35rem);
+  padding-block: clamp(0.85rem, 2.5vw, 1.35rem);
+  transform: translateY(clamp(-8rem, -22vw, -3.5rem));
+}
+
+.works-intro,
+.works-bridge-blip {
+  position: relative;
+  min-width: 0;
+}
+
+.works-intro h2,
+.works-bridge-blip h2 {
   font-family: "Fraunces", Georgia, serif;
   font-size: clamp(2rem, 5vw, 3rem);
   margin: 0 0 0.5rem;
 }
 
-#works .works-intro h2 {
+.works-bridge-head .works-intro h2,
+.works-bridge-head .works-bridge-blip h2 {
+  text-align: center;
+  transform: translateX(clamp(-0.35rem, -0.85vw, -0.12rem));
+  margin-bottom: clamp(0.85rem, 2.25vw, 1.35rem);
+}
+
+#works .works-intro h2,
+#works .works-bridge-blip h2 {
   color: var(--cream);
 }
 
-.works-intro p {
+.works-bridge-head .works-intro h2 a,
+.works-bridge-blip h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.works-bridge-head .works-intro h2 a:hover,
+.works-bridge-blip h2 a:hover {
+  color: var(--pink-light);
+}
+
+.works-bridge-head .works-intro h2 a:focus-visible,
+.works-bridge-blip h2 a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.works-intro p,
+.works-bridge-blip p {
   color: var(--text-muted);
   margin: 0;
   max-width: 36rem;
 }
 
-#works .works-intro p {
+#works .works-intro p,
+#works .works-bridge-blip p {
   color: color-mix(in srgb, var(--cream) 78%, var(--sky-lighter) 22%);
+}
+
+.works-bridge-head .works-intro p,
+.works-bridge-head .works-bridge-blip p {
+  max-width: 100%;
+}
+
+@media (max-width: 52rem) {
+  .works-bridge-head {
+    grid-template-columns: 1fr;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+    align-items: start;
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  .works-bridge-head__pillar--works,
+  .works-bridge-head__pillar--about,
+  .works-bridge-head__pillar--contact {
+    grid-column: 1;
+  }
+
+  .works-bridge-head__pillar {
+    transform: none;
+  }
 }
 
 /*

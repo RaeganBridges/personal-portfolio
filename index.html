@@ -14,6 +14,15 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/work-strip-wave.js" defer></script>
+    <script src="js/nav-reveal.js" defer></script>
+    <noscript>
+      <style>
+        .site-nav {
+          transform: none !important;
+          pointer-events: auto !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <nav class="site-nav" aria-label="Primary">
@@ -22,7 +31,7 @@
       </a>
       <div class="site-nav__links">
         <a href="#home">Home</a>
-        <a href="#works">Works</a>
+        <a href="#works-strips">Works</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </div>
@@ -42,11 +51,27 @@
     </section>
 
     <section id="works" aria-labelledby="works-heading">
-      <div class="works-intro">
-        <h2 id="works-heading">Works</h2>
-        <p>Five recent projects — each strip is a doorway into process, constraints, and outcomes.</p>
+      <div class="works-bridge-head">
+        <div class="works-intro works-bridge-head__pillar works-bridge-head__pillar--works">
+          <h2 id="works-heading"><a href="#works-strips">Works</a></h2>
+          <p>Five recent projects — each strip is a doorway into process, constraints, and outcomes.</p>
+        </div>
+        <div
+          class="works-bridge-blip works-bridge-head__pillar works-bridge-head__pillar--about"
+          aria-labelledby="works-about-teaser-heading"
+        >
+          <h2 id="works-about-teaser-heading"><a href="#about">About</a></h2>
+          <p>Practice, background, and what I take on — identity, books, and environmental graphics.</p>
+        </div>
+        <div
+          class="works-bridge-blip works-bridge-head__pillar works-bridge-head__pillar--contact"
+          aria-labelledby="works-contact-teaser-heading"
+        >
+          <h2 id="works-contact-teaser-heading"><a href="#contact">Contact</a></h2>
+          <p>New inquiries, collaborations, or a portfolio PDF — say hello; I usually reply within two business days.</p>
+        </div>
       </div>
-      <div class="works-strips">
+      <div id="works-strips" class="works-strips">
         <article class="work-strip work-strip--1">
           <a href="project-aurora.html" aria-label="Aurora Festival">
             <div class="work-strip__content" aria-hidden="true">
