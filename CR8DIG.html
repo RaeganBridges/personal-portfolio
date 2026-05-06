@@ -46,20 +46,27 @@
               <h2 id="cr8dig-embed-heading" class="project-site-embed__title">Live site</h2>
               <a
                 class="project-site-embed__open"
-                href="https://raeganbridges.github.io/Cr8Dig/crate.html?genre=1"
+                href="https://raeganbridges.github.io/Cr8Dig/crate.html?genre=1&amp;embed=1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Open in new tab ↗
               </a>
             </div>
+            <p id="cr8dig-embed-notice" class="project-embed-notice" hidden>
+              The preview still loads Cr8Dig’s older sign-in screen because GitHub Pages is serving an
+              old <code>auth-gate.js</code>. Copy
+              <code>cr8dig/auth-gate.js</code> from this portfolio repo into the Cr8Dig site (replace
+              the file at the project root), commit, and push the <strong>Cr8Dig</strong> repo—then
+              refresh. “Open in new tab” uses the same URL once that file is live.
+            </p>
             <div class="project-site-embed__frame-wrap">
               <iframe
                 class="project-site-embed__frame"
-                src="https://raeganbridges.github.io/Cr8Dig/crate.html?genre=1"
-                title="Cr8Dig — embedded live website"
+                src="https://raeganbridges.github.io/Cr8Dig/crate.html?genre=1&amp;embed=1"
+                title="Cr8Dig — All genres crate (embedded preview)"
                 loading="eager"
-                referrerpolicy="strict-origin-when-cross-origin"
+                referrerpolicy="no-referrer-when-downgrade"
                 allow="fullscreen"
               ></iframe>
             </div>
@@ -89,5 +96,21 @@
         </section>
       </div>
     </article>
+    <script>
+      (function () {
+        var notice = document.getElementById("cr8dig-embed-notice");
+        if (!notice) return;
+        fetch("https://raeganbridges.github.io/Cr8Dig/auth-gate.js", { cache: "no-store" })
+          .then(function (r) {
+            return r.ok ? r.text() : "";
+          })
+          .then(function (text) {
+            if (text.indexOf("isPublicAllGenresCrateEmbed") === -1) {
+              notice.hidden = false;
+            }
+          })
+          .catch(function () {});
+      })();
+    </script>
   </body>
 </html>

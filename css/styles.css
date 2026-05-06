@@ -1016,6 +1016,21 @@ body.project-wordmark-head-space .project-split__text {
   }
 }
 
+.project-embed-notice {
+  margin: 0;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--charcoal) 88%, var(--navy) 12%);
+  background: color-mix(in srgb, #fff7ed 92%, var(--cream));
+  border-bottom: 1px solid color-mix(in srgb, var(--sky-lighter) 35%, transparent);
+}
+
+.project-embed-notice code {
+  font-size: 0.88em;
+  color: var(--navy);
+}
+
 .project-gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
