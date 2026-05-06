@@ -1,8 +1,6 @@
 /**
- * Cr8Dig loads this file from jsDelivr (see script tags in Cr8Dig HTML). Edit here and push
- * personal-portfolio; jsDelivr picks up `main` after a short delay.
- *
- * Blocks the app until SongShareAuth.getSession() exists.
+ * Deploy on Cr8Dig: keep this file at the repo root as auth-gate.js (same name Cr8Dig already uses).
+ * Blocks the app until SongShareAuth.getSession() exists — except All genres crate embed (see below).
  */
 (function () {
   "use strict";

@@ -54,11 +54,10 @@
               </a>
             </div>
             <p id="cr8dig-embed-notice" class="project-embed-notice" hidden>
-              The preview needs two deploys: push this repo so
-              <code>cr8dig/auth-gate.js</code> is on GitHub, then push <strong>Cr8Dig</strong> with its
-              HTML loading that file from jsDelivr (see the
-              <code>cdn.jsdelivr.net/gh/RaeganBridges/personal-portfolio…</code> script tag). After both
-              are live, refresh here.
+              <strong>One fix — Cr8Dig repo only:</strong> On GitHub open
+              <code>RaeganBridges/Cr8Dig</code> → file <code>auth-gate.js</code> → Edit (pencil) → select
+              all → paste in the full contents of this repo’s <code>cr8dig/auth-gate.js</code> → Commit.
+              Wait ~1 minute for Pages, then reload this page. No Terminal required.
             </p>
             <div class="project-site-embed__frame-wrap">
               <iframe
@@ -100,30 +99,18 @@
       (function () {
         var notice = document.getElementById("cr8dig-embed-notice");
         if (!notice) return;
-        var cdnGate =
-          "https://cdn.jsdelivr.net/gh/RaeganBridges/personal-portfolio@main/cr8dig/auth-gate.js";
-        Promise.all([
-          fetch("https://raeganbridges.github.io/Cr8Dig/crate.html", { cache: "no-store" }).then(
-            function (r) {
-              return r.ok ? r.text() : "";
-            }
-          ),
-          fetch(cdnGate, { cache: "no-store" }).then(function (r) {
+        fetch("https://raeganbridges.github.io/Cr8Dig/auth-gate.js", { cache: "no-store" })
+          .then(function (r) {
             return r.ok ? r.text() : "";
-          }),
-        ])
-          .then(function (pair) {
-            var html = pair[0] || "";
-            var gateJs = pair[1] || "";
-            var crateUsesCdn =
-              html.indexOf("cdn.jsdelivr.net/gh/RaeganBridges/personal-portfolio") !== -1 &&
-              html.indexOf("cr8dig/auth-gate.js") !== -1;
-            var cdnHasBypass = gateJs.indexOf("isPublicAllGenresCrateEmbed") !== -1;
-            if (!crateUsesCdn || !cdnHasBypass) {
+          })
+          .then(function (text) {
+            if (text.indexOf("isPublicAllGenresCrateEmbed") === -1) {
               notice.hidden = false;
             }
           })
-          .catch(function () {});
+          .catch(function () {
+            notice.hidden = false;
+          });
       })();
     </script>
   </body>
