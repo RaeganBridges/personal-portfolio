@@ -1,6 +1,6 @@
 /**
- * Deploy: copy this file to the Cr8Dig repo as auth-gate.js and push. GitHub Pages
- * must redeploy before the portfolio “live site” iframe can skip the login modal.
+ * Cr8Dig loads this file from jsDelivr (see script tags in Cr8Dig HTML). Edit here and push
+ * personal-portfolio; jsDelivr picks up `main` after a short delay.
  *
  * Blocks the app until SongShareAuth.getSession() exists.
  */

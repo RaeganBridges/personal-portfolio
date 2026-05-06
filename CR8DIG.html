@@ -54,11 +54,11 @@
               </a>
             </div>
             <p id="cr8dig-embed-notice" class="project-embed-notice" hidden>
-              The preview still loads Cr8Dig’s older sign-in screen because GitHub Pages is serving an
-              old <code>auth-gate.js</code>. Copy
-              <code>cr8dig/auth-gate.js</code> from this portfolio repo into the Cr8Dig site (replace
-              the file at the project root), commit, and push the <strong>Cr8Dig</strong> repo—then
-              refresh. “Open in new tab” uses the same URL once that file is live.
+              The preview needs two deploys: push this repo so
+              <code>cr8dig/auth-gate.js</code> is on GitHub, then push <strong>Cr8Dig</strong> with its
+              HTML loading that file from jsDelivr (see the
+              <code>cdn.jsdelivr.net/gh/RaeganBridges/personal-portfolio…</code> script tag). After both
+              are live, refresh here.
             </p>
             <div class="project-site-embed__frame-wrap">
               <iframe
@@ -100,12 +100,26 @@
       (function () {
         var notice = document.getElementById("cr8dig-embed-notice");
         if (!notice) return;
-        fetch("https://raeganbridges.github.io/Cr8Dig/auth-gate.js", { cache: "no-store" })
-          .then(function (r) {
+        var cdnGate =
+          "https://cdn.jsdelivr.net/gh/RaeganBridges/personal-portfolio@main/cr8dig/auth-gate.js";
+        Promise.all([
+          fetch("https://raeganbridges.github.io/Cr8Dig/crate.html", { cache: "no-store" }).then(
+            function (r) {
+              return r.ok ? r.text() : "";
+            }
+          ),
+          fetch(cdnGate, { cache: "no-store" }).then(function (r) {
             return r.ok ? r.text() : "";
-          })
-          .then(function (text) {
-            if (text.indexOf("isPublicAllGenresCrateEmbed") === -1) {
+          }),
+        ])
+          .then(function (pair) {
+            var html = pair[0] || "";
+            var gateJs = pair[1] || "";
+            var crateUsesCdn =
+              html.indexOf("cdn.jsdelivr.net/gh/RaeganBridges/personal-portfolio") !== -1 &&
+              html.indexOf("cr8dig/auth-gate.js") !== -1;
+            var cdnHasBypass = gateJs.indexOf("isPublicAllGenresCrateEmbed") !== -1;
+            if (!crateUsesCdn || !cdnHasBypass) {
               notice.hidden = false;
             }
           })
