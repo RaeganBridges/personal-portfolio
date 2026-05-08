@@ -1,7 +1,7 @@
 (function () {
   const nav = document.querySelector(".site-nav");
-  const bridgeHead = document.querySelector(".works-bridge-head");
   if (!nav) return;
+  const bridgeHead = document.querySelector(".works-bridge-head");
 
   function syncNav() {
     if (!bridgeHead) {

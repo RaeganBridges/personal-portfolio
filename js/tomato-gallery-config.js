@@ -11,9 +11,4 @@ window.TomatoGallery = [
     wide: true,
     hero: true,
   },
-  {
-    file: "images/works/TOMATO/Final Staged Photo.jpg",
-    alt: "Tomato — final staged photograph",
-    wide: true,
-  },
 ];
