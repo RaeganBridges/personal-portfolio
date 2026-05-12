@@ -797,6 +797,18 @@ body.page-about-contact #about {
     padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px));
     box-shadow: -12px 0 40px color-mix(in srgb, var(--navy) 22%, transparent);
   }
+
+  /* Split text rail: flex column so meta tags pin to bottom like a footer */
+  .project-split__text:has(.project-meta--split-rail-footer) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-split__text:has(.project-meta--split-rail-footer) .project-split__rail-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+  }
 }
 
 .project-split__images {
@@ -825,6 +837,19 @@ body.page-about-contact #about {
 
   .project-split__images {
     order: 1;
+  }
+
+  /* Split text card: stretch so meta tags sit on a visual footer row */
+  .project-split__text:has(.project-meta--split-rail-footer) {
+    display: flex;
+    flex-direction: column;
+    min-height: min(58vh, 34rem);
+  }
+
+  .project-split__text:has(.project-meta--split-rail-footer) .project-split__rail-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
   }
 }
 
@@ -887,6 +912,17 @@ body.project-wordmark-head-space .project-split__text {
 .project-split__text .project-split__body-text {
   margin-top: 1.15rem;
   text-align: left;
+}
+
+/* Delight campaign copy — smaller than default .project-page .body-text (replaces dev gallery hint on page) */
+.project-split__text .project-split__body-text--delight {
+  font-size: clamp(0.78rem, 0.72rem + 0.35vw, 0.88rem);
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--charcoal) 72%, var(--navy) 28%);
+}
+
+.project-split__text .project-split__body-text--delight p {
+  margin: 0 0 1rem;
 }
 
 .project-split__text .project-split__body-text p:last-child {
@@ -1616,6 +1652,19 @@ body.project-wordmark-head-space .project-split__text {
   margin-bottom: 1.25rem;
 }
 
+/* Split rail: meta tags anchored at bottom of text column, smaller */
+.project-split__text .project-meta.project-meta--split-rail-footer {
+  flex-shrink: 0;
+  font-size: clamp(0.56rem, 0.5rem + 0.4vw, 0.68rem);
+  line-height: 1.45;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: clamp(1rem, 2.5vw, 1.75rem);
+  text-align: center;
+  letter-spacing: 0.03em;
+  max-width: 100%;
+}
+
 .project-page--split .project-gallery__hint {
   font-size: 0.8rem;
   margin-top: 0.65rem;
@@ -1635,6 +1684,20 @@ body.project-wordmark-head-space .project-split__text {
   max-width: 92%;
   margin-inline: auto;
   object-position: center top;
+}
+
+/* Delight wordmark — larger title in the text rail */
+.project-page--split .project-split__text #delight-heading.project-split__wordmark .project-split__wordmark-img {
+  max-width: 100%;
+  width: 100%;
+  transform: scale(1.14);
+  transform-origin: center top;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-page--split .project-split__text #delight-heading.project-split__wordmark .project-split__wordmark-img {
+    transform: none;
+  }
 }
 
 .project-page--split .project-split {
