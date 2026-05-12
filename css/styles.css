@@ -959,26 +959,21 @@ body.project-wordmark-head-space .project-split__text {
 }
 
 /*
- * Delight: 6-col grid — row 1 Table-B full width; row 2 Pins + QR + cards (compact trio);
- * wide items use full row (overrides default .project-gallery__item--wide span 2).
+ * Delight: 12-col grid — row 1 Table-B (7) + Pins (5) ≈ 1.16:0.84; row 2 last three, equal thirds.
  */
 #delight-gallery.project-gallery {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  align-items: start;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: stretch;
 }
 
 @media (min-width: 52rem) {
   #delight-gallery.project-gallery {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 }
 
-#delight-gallery.project-gallery > .project-gallery__item--wide {
-  grid-column: 1 / -1;
-}
-
-/* Table-B: full width, left-aligned like other full-bleed tiles */
 #delight-gallery .project-gallery__item:nth-child(1) {
+  grid-column: 1 / span 7;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -986,20 +981,8 @@ body.project-wordmark-head-space .project-split__text {
   background: transparent;
 }
 
-#delight-gallery .project-gallery__item:nth-child(1) img {
-  width: auto;
-  max-width: 95%;
-  height: auto;
-  object-fit: contain;
-  object-position: left center;
-  flex-shrink: 0;
-}
-
-/* Second–fourth: one row, three equal slots, much shorter images */
-#delight-gallery .project-gallery__item:nth-child(2),
-#delight-gallery .project-gallery__item:nth-child(3),
-#delight-gallery .project-gallery__item:nth-child(4) {
-  grid-column: span 2;
+#delight-gallery .project-gallery__item:nth-child(2) {
+  grid-column: 8 / span 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1007,19 +990,46 @@ body.project-wordmark-head-space .project-split__text {
   background: transparent;
 }
 
-#delight-gallery .project-gallery__item:nth-child(2) img,
-#delight-gallery .project-gallery__item:nth-child(3) img,
-#delight-gallery .project-gallery__item:nth-child(4) img {
-  width: auto;
+#delight-gallery .project-gallery__item:nth-child(1) img,
+#delight-gallery .project-gallery__item:nth-child(2) img {
+  width: 100%;
   max-width: 100%;
-  max-height: min(22vh, 168px);
   height: auto;
   object-fit: contain;
   object-position: center;
   flex-shrink: 0;
 }
 
-/* Same corner radius as .project-gallery__item (6px) */
+#delight-gallery .project-gallery__item:nth-child(1) img {
+  width: auto;
+  max-width: 95%;
+  object-position: left center;
+}
+
+/* Last three: one row, equal width, normal gallery scale */
+#delight-gallery .project-gallery__item:nth-child(3),
+#delight-gallery .project-gallery__item:nth-child(4),
+#delight-gallery .project-gallery__item:nth-child(5) {
+  grid-column: span 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  background: transparent;
+}
+
+#delight-gallery .project-gallery__item:nth-child(3) img,
+#delight-gallery .project-gallery__item:nth-child(4) img,
+#delight-gallery .project-gallery__item:nth-child(5) img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: min(52vh, 520px);
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+}
+
 #delight-gallery .project-gallery__item img {
   border-radius: 6px;
 }
@@ -1029,16 +1039,12 @@ body.project-wordmark-head-space .project-split__text {
     grid-template-columns: 1fr;
   }
 
+  #delight-gallery .project-gallery__item:nth-child(1),
   #delight-gallery .project-gallery__item:nth-child(2),
   #delight-gallery .project-gallery__item:nth-child(3),
-  #delight-gallery .project-gallery__item:nth-child(4) {
+  #delight-gallery .project-gallery__item:nth-child(4),
+  #delight-gallery .project-gallery__item:nth-child(5) {
     grid-column: 1 / -1;
-  }
-
-  #delight-gallery .project-gallery__item:nth-child(2) img,
-  #delight-gallery .project-gallery__item:nth-child(3) img,
-  #delight-gallery .project-gallery__item:nth-child(4) img {
-    max-height: min(36vh, 260px);
   }
 
   #delight-gallery .project-gallery__item:nth-child(1) img {
