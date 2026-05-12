@@ -27,12 +27,12 @@
   --tone-mid: var(--navy);
   /* Legacy name: was saturated blue behind works; #works now uses --works-strip-backdrop. */
   --hero-works-surface: color-mix(in srgb, var(--navy) 58%, var(--sky) 42%);
-  /* Wash behind work-strip “boxes” (shows in wave gaps / edges) */
-  --works-strip-backdrop: color-mix(in srgb, var(--sky-mist) 18%, #ffffff 82%);
+  /* Wash behind work-strip “boxes” — saturated blue (sky chroma + depth) */
+  --works-strip-backdrop: color-mix(in srgb, var(--navy) 36%, var(--sky-lighter) 64%);
   /* #about (and #works lower half) solid fill */
   --about-bg: #15225d;
   /* Slightly below 4rem so nav + layout match a typical local window vs wide fullscreen on gh-pages */
-  --nav-h: 3.75rem;
+  --nav-h: 2.65rem;
   --strip-angle: 8deg;
   --strip-tan: tan(var(--strip-angle));
   --strip-h: 50vh;
@@ -88,16 +88,14 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem 1.25rem;
+  gap: 0.35rem 0.75rem;
   min-height: var(--nav-h);
-  padding: 0.75rem clamp(1rem, 3vw, 1.5rem);
-  background: color-mix(
-    in srgb,
-    var(--bg) 84%,
-    color-mix(in srgb, var(--sky) 7%, color-mix(in srgb, var(--pink-pale) 55%, var(--sky-pale)))
-  );
+  padding: 0.25rem clamp(0.6rem, 2vw, 1rem);
+  line-height: 1;
+  background: var(--navy);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid color-mix(in srgb, color-mix(in srgb, var(--sky-lighter) 55%, var(--pink-lighter)) 28%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--sky) 22%, transparent);
+  box-shadow: 0 3px 14px color-mix(in srgb, var(--charcoal) 22%, transparent);
   transform: translateY(-100%);
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
@@ -117,6 +115,7 @@ body {
 .site-nav__brand {
   display: flex;
   align-items: center;
+  align-self: stretch;
   flex-shrink: 0;
   line-height: 0;
   text-decoration: none;
@@ -124,9 +123,9 @@ body {
 
 .site-nav__brand img {
   display: block;
-  height: clamp(1.75rem, 4vw, 2.25rem);
+  height: clamp(1.1rem, 2.4vw, 1.35rem);
   width: auto;
-  max-width: 160px;
+  max-width: 120px;
   object-fit: contain;
   /* Render logomark as white on the dark nav bar */
   filter: brightness(0) invert(1);
@@ -143,18 +142,23 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.25rem 1.5rem;
-  margin-inline-end: 2.05rem;
+  align-self: stretch;
+  gap: 0.15rem 0.85rem;
+  margin-inline-end: 1rem;
 }
 
 .site-nav__links a {
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.8125rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.35em 0;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  padding: 0;
+  min-height: 0;
   border-bottom: 2px solid transparent;
   transition: color 0.2s, border-color 0.2s;
 }
@@ -869,6 +873,23 @@ body.project-wordmark-head-space .project-split__text {
   background: transparent;
 }
 
+/* Logos / marks: intrinsic width, centered in the tile */
+.project-gallery__item--logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+}
+
+.project-gallery__item--logo img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(64vh, 520px);
+  object-fit: contain;
+  object-position: center;
+}
+
 .project-gallery__item img {
   display: block;
   width: 100%;
@@ -945,18 +966,26 @@ body.project-wordmark-head-space .project-split__text {
   }
 }
 
-/* Tomato: dark green stage behind the spread (no drop shadow). */
+/* Tomato: dark green stage — flex centers the spread (absolute + scale looked off-axis). */
 #tomato-gallery .project-gallery__item--hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   background: #0f2918;
   height: min(68vh, 800px);
 }
 
 #tomato-gallery .project-gallery__item--hero img {
+  position: relative;
+  inset: auto;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
   object-fit: contain;
   object-position: center;
   box-shadow: none;
-  /* Larger spread inside fixed hero; clips slightly into green at edges */
   transform: scale(1.46);
   transform-origin: center center;
 }
@@ -985,7 +1014,7 @@ body.project-wordmark-head-space .project-split__text {
   grid-column: 1 / span 7;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   min-height: 0;
   background: transparent;
 }
@@ -1011,8 +1040,8 @@ body.project-wordmark-head-space .project-split__text {
 
 #delight-gallery .project-gallery__item:nth-child(1) img {
   width: auto;
-  max-width: 95%;
-  object-position: left center;
+  max-width: 100%;
+  object-position: center;
 }
 
 /* Last three: one row, equal width, normal gallery scale */
@@ -1083,7 +1112,30 @@ body.project-wordmark-head-space .project-split__text {
     grid-row: 1 / span 2;
     align-self: stretch;
     display: flex;
+    align-items: stretch;
+    justify-content: center;
     min-height: 0;
+  }
+
+  /* Quadrant tiles: center asset in cell when row height > image height */
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
   }
 
   /* Fill the tall lead cell like the original mosaic layout. */
@@ -1436,6 +1488,23 @@ body.project-wordmark-head-space .project-split__text {
 
 .project-page--split .project-gallery {
   gap: clamp(0.55rem, 1.35vw, 0.95rem);
+  align-items: center;
+}
+
+/* Center thumbnails in the tile when the grid row is taller than the image */
+.project-page--split .project-gallery > .project-gallery__item:not(.project-gallery__item--hero) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+@media (min-width: 52rem) {
+  /* Mosaic lead must stretch so the cover image can fill the tall column */
+  .project-page--split .project-gallery.project-gallery--strings-mosaic > .project-gallery__item:nth-child(1) {
+    align-items: stretch;
+    justify-content: center;
+  }
 }
 
 @media (min-width: 52rem) {
