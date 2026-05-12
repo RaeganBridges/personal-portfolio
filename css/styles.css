@@ -1097,14 +1097,16 @@ body.project-wordmark-head-space .project-split__text {
  */
 #strings-gallery.project-gallery--strings-mosaic {
   width: 100%;
-  max-width: min(72rem, 100%);
+  max-width: min(56rem, 100%);
   margin-inline: auto;
+  /* Space between lead + 2×2 and between the four tiles (row + column) */
+  gap: clamp(0.45rem, 1.15vw, 0.8rem);
 }
 
 @media (min-width: 52rem) {
   .project-gallery--strings-mosaic {
-    /* Tall lead (wider) + right 2×2 pair */
-    grid-template-columns: minmax(0, 3.1fr) minmax(0, 0.72fr) minmax(0, 0.72fr);
+    /* Wider right pair → four tiles render larger at width:100% / height:auto; lead slightly narrower only */
+    grid-template-columns: minmax(0, 2.05fr) minmax(0, 1.26fr) minmax(0, 1.26fr);
   }
 
   .project-gallery--strings-mosaic > .project-gallery__item:nth-child(1) {
@@ -1112,30 +1114,7 @@ body.project-wordmark-head-space .project-split__text {
     grid-row: 1 / span 2;
     align-self: stretch;
     display: flex;
-    align-items: stretch;
-    justify-content: center;
     min-height: 0;
-  }
-
-  /* Quadrant tiles: center asset in cell when row height > image height */
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2),
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3),
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4),
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 0;
-  }
-
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2) img,
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3) img,
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4) img,
-  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
   }
 
   /* Fill the tall lead cell like the original mosaic layout. */
@@ -1166,6 +1145,33 @@ body.project-wordmark-head-space .project-split__text {
     grid-row: 2;
   }
 
+  /*
+   * Right 2×2 only: height follows each file’s aspect ratio (portrait reads taller).
+   * Do not alter nth-child(1) lead rules above.
+   */
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) {
+    align-self: start;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    object-fit: unset;
+    object-position: unset;
+  }
+
   /* Override generic --wide span so placement above wins */
   .project-gallery--strings-mosaic > .project-gallery__item--wide:nth-child(1) {
     grid-column: 1;
@@ -1184,6 +1190,26 @@ body.project-wordmark-head-space .project-split__text {
   }
 
   .project-gallery--strings-mosaic > .project-gallery__item:nth-child(1) img {
+    width: 100%;
+    height: auto;
+    object-fit: unset;
+  }
+
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4),
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) {
+    position: static;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(2) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(3) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(4) img,
+  .project-gallery--strings-mosaic > .project-gallery__item:nth-child(5) img {
+    position: relative;
+    inset: auto;
     width: 100%;
     height: auto;
     object-fit: unset;
@@ -1426,13 +1452,9 @@ body.project-wordmark-head-space .project-split__text {
   width: 100%;
 }
 
-/* Nudge media column: left on most work pages, right on Strings (mosaic) */
+/* Nudge media column left on work pages (Strings uses same rail as the others) */
 .project-page--split:not(:has(#strings-gallery)) .project-split__images {
   transform: translateX(clamp(-0.6rem, -1.6vw, -0.35rem));
-}
-
-.project-page--split:has(#strings-gallery) .project-split__images {
-  transform: translateX(clamp(0.35rem, 1.5vw, 1rem));
 }
 
 .project-page--split .project-back {
@@ -1473,16 +1495,12 @@ body.project-wordmark-head-space .project-split__text {
 
 @media (min-width: 56rem) {
   .project-page.project-page--split .project-split__images {
-    max-width: 62rem;
+    max-width: 56rem;
     margin-inline: auto;
   }
 
   .project-page.project-page--split:not(:has(#strings-gallery)) .project-split__images {
     transform: translateX(clamp(-1.85rem, -2.6vw, -0.85rem));
-  }
-
-  .project-page.project-page--split:has(#strings-gallery) .project-split__images {
-    transform: translateX(clamp(0.85rem, 2.2vw, 2.25rem));
   }
 
   .project-page.project-page--split {
@@ -1503,13 +1521,14 @@ body.project-wordmark-head-space .project-split__text {
   }
 }
 
-.project-page--split .project-gallery {
+/* Tighter grid on split pages except Strings — mosaic keeps default .project-gallery gap */
+.project-page--split .project-gallery:not(.project-gallery--strings-mosaic) {
   gap: clamp(0.55rem, 1.35vw, 0.95rem);
   align-items: center;
 }
 
-/* Center thumbnails in the tile when the grid row is taller than the image */
-.project-page--split .project-gallery > .project-gallery__item:not(.project-gallery__item--hero) {
+/* Center thumbnails in the tile when the grid row is taller than the image (not Strings mosaic). */
+.project-page--split .project-gallery:not(.project-gallery--strings-mosaic) > .project-gallery__item:not(.project-gallery__item--hero) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1517,15 +1536,8 @@ body.project-wordmark-head-space .project-split__text {
 }
 
 @media (min-width: 52rem) {
-  /* Mosaic lead must stretch so the cover image can fill the tall column */
-  .project-page--split .project-gallery.project-gallery--strings-mosaic > .project-gallery__item:nth-child(1) {
-    align-items: stretch;
-    justify-content: center;
-  }
-}
-
-@media (min-width: 52rem) {
-  .project-page--split .project-gallery {
+  /* Do not override the Strings mosaic 3-column grid (same specificity / later cascade). */
+  .project-page--split .project-gallery:not(.project-gallery--strings-mosaic) {
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
   }
 }
@@ -1574,11 +1586,6 @@ body.project-wordmark-head-space .project-split__text {
 .project-page--split #delight-gallery .project-gallery__item:nth-child(4) img,
 .project-page--split #delight-gallery .project-gallery__item:nth-child(5) img {
   max-height: min(48vh, 470px);
-}
-
-.project-page--split #strings-gallery.project-gallery--strings-mosaic {
-  max-width: min(71rem, 100%);
-  margin-inline: auto;
 }
 
 .project-page--split .project-site-embed__frame {
