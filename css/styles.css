@@ -966,6 +966,13 @@ body.project-wordmark-head-space .project-split__text {
   }
 }
 
+/* Two-up row for the first two photos; hero label still spans full width below */
+@media (min-width: 52rem) {
+  #hhc-gallery.project-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* Tomato: dark green stage — flex centers the spread (absolute + scale looked off-axis). */
 #tomato-gallery .project-gallery__item--hero {
   display: flex;
