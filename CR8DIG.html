@@ -51,12 +51,6 @@
                 Open in new tab ↗
               </a>
             </div>
-            <p id="cr8dig-embed-notice" class="project-embed-notice" hidden>
-              <strong>One fix — Cr8Dig repo only:</strong> On GitHub open
-              <code>RaeganBridges/Cr8Dig</code> → file <code>auth-gate.js</code> → Edit (pencil) → select
-              all → paste in the full contents of this repo’s <code>cr8dig/auth-gate.js</code> → Commit.
-              Wait ~1 minute for Pages, then reload this page. No Terminal required.
-            </p>
             <div class="project-site-embed__frame-wrap">
               <iframe
                 class="project-site-embed__frame"
@@ -93,23 +87,5 @@
         </section>
       </div>
     </article>
-    <script>
-      (function () {
-        var notice = document.getElementById("cr8dig-embed-notice");
-        if (!notice) return;
-        fetch("https://raeganbridges.github.io/Cr8Dig/auth-gate.js", { cache: "no-store" })
-          .then(function (r) {
-            return r.ok ? r.text() : "";
-          })
-          .then(function (text) {
-            if (text.indexOf("isPublicAllGenresCrateEmbed") === -1) {
-              notice.hidden = false;
-            }
-          })
-          .catch(function () {
-            notice.hidden = false;
-          });
-      })();
-    </script>
   </body>
 </html>

@@ -601,8 +601,9 @@ body.page-about-contact #about {
 }
 
 .project-page--split {
-  max-width: min(98vw, 92rem);
-  --delight-text-panel-w: min(26rem, 40vw);
+  max-width: min(96vw, 84rem);
+  /* Slightly narrower text rail on the five split work pages → more room for media */
+  --delight-text-panel-w: min(22rem, 35vw);
 }
 
 .project-split {
@@ -1354,5 +1355,125 @@ body.project-wordmark-head-space .project-split__text {
 
   .gallery-lightbox__nav:hover {
     transform: translateY(-50%);
+  }
+}
+
+/* ——— Five work project pages (HHC, Strings, Cr8Dig, Tomato, Delight): smaller type + media ——— */
+
+.project-page--split .project-back {
+  font-size: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-page--split .project-meta,
+.project-page--split .project-split__text .project-meta {
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-page--split .project-gallery__hint {
+  font-size: 0.8rem;
+  margin-top: 0.65rem;
+  line-height: 1.45;
+}
+
+.project-page--split .project-gallery__hint code {
+  font-size: 0.82em;
+}
+
+.project-page--split .project-site-embed__title,
+.project-page--split .project-site-embed__open {
+  font-size: 0.75rem;
+}
+
+.project-page--split .project-split__text .project-split__wordmark-img {
+  max-width: 88%;
+}
+
+.project-page--split .project-split {
+  gap: clamp(1rem, 2.75vw, 1.85rem);
+}
+
+@media (min-width: 56rem) {
+  .project-page.project-page--split .project-split__images {
+    max-width: 56rem;
+  }
+
+  .project-page.project-page--split {
+    padding-left: clamp(1rem, 3vw, 1.85rem);
+  }
+
+  .project-page.project-page--split .project-split__text {
+    padding-inline: clamp(1rem, 2.5vw, 1.65rem);
+    padding-top: clamp(0.4rem, 1.1vw, 0.72rem);
+  }
+}
+
+@media (max-width: 55.99rem) {
+  .project-page--split .project-split__text {
+    padding-inline: clamp(1rem, 2.5vw, 1.5rem);
+    padding-top: clamp(0.45rem, 1.2vw, 0.85rem);
+    padding-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  }
+}
+
+.project-page--split .project-gallery {
+  gap: clamp(0.45rem, 1.2vw, 0.85rem);
+}
+
+@media (min-width: 52rem) {
+  .project-page--split .project-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  }
+}
+
+.project-page--split .project-gallery__item--hero {
+  height: min(50vh, 560px);
+}
+
+@media (max-width: 51.99rem) {
+  .project-page--split .project-gallery__item--hero {
+    height: min(46vh, 500px);
+  }
+}
+
+.project-page--split #hhc-gallery .project-gallery__item--hero img {
+  max-width: 90%;
+  margin-inline: auto;
+}
+
+.project-page--split #tomato-gallery .project-gallery__item--hero {
+  height: min(58vh, 680px);
+}
+
+.project-page--split #tomato-gallery .project-gallery__item--hero img {
+  transform: scale(1.28);
+}
+
+@media (max-width: 51.99rem) {
+  .project-page--split #tomato-gallery .project-gallery__item--hero {
+    height: min(50vh, 600px);
+  }
+}
+
+.project-page--split #delight-gallery .project-gallery__item:nth-child(3) img,
+.project-page--split #delight-gallery .project-gallery__item:nth-child(4) img,
+.project-page--split #delight-gallery .project-gallery__item:nth-child(5) img {
+  max-height: min(44vh, 420px);
+}
+
+.project-page--split #strings-gallery.project-gallery--strings-mosaic {
+  max-width: min(48rem, 100%);
+}
+
+.project-page--split .project-site-embed__frame {
+  height: min(58vh, 720px);
+  min-height: min(58vh, 720px);
+}
+
+@media (max-width: 55.99rem) {
+  .project-page--split .project-site-embed__frame {
+    height: min(48vh, 520px);
+    min-height: min(48vh, 520px);
   }
 }
