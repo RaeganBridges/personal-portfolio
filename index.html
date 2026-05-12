@@ -14,28 +14,18 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/work-strip-wave.js" defer></script>
-    <script src="js/nav-reveal.js" defer></script>
-    <noscript>
-      <style>
-        .site-nav {
-          transform: none !important;
-          pointer-events: auto !important;
-        }
-      </style>
-    </noscript>
   </head>
-  <body>
-    <nav class="site-nav" aria-label="Primary">
-      <a class="site-nav__brand" href="#works-strips">
-        <img src="images/logo/LOGOMARK.png" alt="Studio North" width="72" height="72" decoding="async" />
-      </a>
-      <div class="site-nav__links">
-        <a href="#works-strips">Works</a>
-        <a href="about.html#about">Contact</a>
-      </div>
-    </nav>
-
+  <body class="home">
     <section id="works" aria-label="Works">
+      <header class="site-inline-nav" aria-label="Site">
+        <a class="site-inline-nav__brand" href="#works-strips">
+          <img src="images/logo/LOGOMARK.png" alt="Studio North" width="72" height="72" decoding="async" />
+        </a>
+        <nav class="site-inline-nav__links" aria-label="Primary">
+          <a href="#works-strips">Works</a>
+          <a href="about.html#about">Contact</a>
+        </nav>
+      </header>
       <div id="works-strips" class="works-strips">
         <article class="work-strip work-strip--1">
           <a href="HHC.html" aria-label="HHC">

@@ -5,6 +5,26 @@
 (function () {
   "use strict";
 
+  /** Ensures larger auth panel when only auth-gate.js is updated (overrides older auth.css on host). */
+  function ensureAuthGateScaleStyles() {
+    if (document.getElementById("songshare-auth-gate-scale")) return;
+    var st = document.createElement("style");
+    st.id = "songshare-auth-gate-scale";
+    st.textContent =
+      "#songshare-auth-gate .auth-panel{width:min(36rem,calc(100vw - 2rem));max-width:100%;border-radius:10px}" +
+      "#songshare-auth-gate .auth-panel-header{padding:1.5rem 1.75rem .9rem}" +
+      "#songshare-auth-gate .auth-panel-title{font-size:1.55rem}" +
+      "#songshare-auth-gate .auth-panel-lede{font-size:.85rem;margin:.55rem 0 0}" +
+      "#songshare-auth-gate .auth-tabs{padding:0 1.75rem;margin-top:.85rem}" +
+      "#songshare-auth-gate .auth-tab{padding:.72rem .55rem;font-size:.76rem}" +
+      "#songshare-auth-gate .auth-form-wrap{padding:1.2rem 1.75rem 1.65rem}" +
+      "#songshare-auth-gate .auth-field{margin-bottom:1rem}" +
+      "#songshare-auth-gate .auth-label{font-size:.72rem;margin-bottom:.35rem}" +
+      "#songshare-auth-gate .auth-input{padding:.82rem .95rem;font-size:1.05rem;border-radius:6px}" +
+      "#songshare-auth-gate .auth-submit{padding:.88rem 1.1rem;font-size:.86rem;min-height:3rem;border-radius:6px;margin-top:.4rem}";
+    document.head.appendChild(st);
+  }
+
   function showMsg(el, text) {
     if (!el) return;
     el.textContent = text || "";
@@ -200,6 +220,7 @@
   }
 
   function run() {
+    ensureAuthGateScaleStyles();
     if (isPublicAllGenresCrateEmbed()) {
       window.dispatchEvent(new CustomEvent("songshare:authed"));
       return;
