@@ -441,7 +441,14 @@ body.page-about-contact #about {
 }
 
 .work-strip--5 a {
-  background-image: url("../images/spreads/DELIGHT.png");
+  background-image: url("../images/spreads/Delight-01.png");
+  background-size: 101% auto;
+  background-position: center;
+}
+
+.work-strip--5 a:hover,
+.work-strip--5 a:focus-visible {
+  background-image: url("../videos/Delight.gif");
   background-size: 101% auto;
   background-position: center;
 }
@@ -1184,7 +1191,7 @@ body.project-wordmark-head-space .project-split__text {
 }
 
 /*
- * Delight: 12-col grid — row 1 Table-B (7) + Pins (5) ≈ 1.16:0.84; row 2 last three, equal thirds.
+ * Delight: 12-col grid — row 1 Table-B (7) + Pins (5) ≈ 1.16:0.84; row 2 Stickers gif + three photos, equal quarters.
  */
 #delight-gallery.project-gallery {
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1231,11 +1238,12 @@ body.project-wordmark-head-space .project-split__text {
   object-position: center;
 }
 
-/* Last three: one row, equal width, normal gallery scale */
+/* Row 2: four equal columns (stickers gif + three photos) */
 #delight-gallery .project-gallery__item:nth-child(3),
 #delight-gallery .project-gallery__item:nth-child(4),
-#delight-gallery .project-gallery__item:nth-child(5) {
-  grid-column: span 4;
+#delight-gallery .project-gallery__item:nth-child(5),
+#delight-gallery .project-gallery__item:nth-child(6) {
+  grid-column: span 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1245,7 +1253,8 @@ body.project-wordmark-head-space .project-split__text {
 
 #delight-gallery .project-gallery__item:nth-child(3) img,
 #delight-gallery .project-gallery__item:nth-child(4) img,
-#delight-gallery .project-gallery__item:nth-child(5) img {
+#delight-gallery .project-gallery__item:nth-child(5) img,
+#delight-gallery .project-gallery__item:nth-child(6) img {
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -1268,7 +1277,8 @@ body.project-wordmark-head-space .project-split__text {
   #delight-gallery .project-gallery__item:nth-child(2),
   #delight-gallery .project-gallery__item:nth-child(3),
   #delight-gallery .project-gallery__item:nth-child(4),
-  #delight-gallery .project-gallery__item:nth-child(5) {
+  #delight-gallery .project-gallery__item:nth-child(5),
+  #delight-gallery .project-gallery__item:nth-child(6) {
     grid-column: 1 / -1;
   }
 
@@ -1782,7 +1792,8 @@ body.project-wordmark-head-space .project-split__text {
 
 .project-page--split #delight-gallery .project-gallery__item:nth-child(3) img,
 .project-page--split #delight-gallery .project-gallery__item:nth-child(4) img,
-.project-page--split #delight-gallery .project-gallery__item:nth-child(5) img {
+.project-page--split #delight-gallery .project-gallery__item:nth-child(5) img,
+.project-page--split #delight-gallery .project-gallery__item:nth-child(6) img {
   max-height: min(48vh, 470px);
 }
 
