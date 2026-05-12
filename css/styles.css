@@ -435,7 +435,14 @@ body.page-about-contact #about {
 }
 
 .work-strip--4 a {
-  background-image: url("../images/spreads/CHERRY.png");
+  background-image: url("../images/spreads/CT-01.png");
+  background-size: 101% auto;
+  background-position: center;
+}
+
+.work-strip--4 a:hover,
+.work-strip--4 a:focus-visible {
+  background-image: url("../videos/Tomato.gif");
   background-size: 101% auto;
   background-position: center;
 }
