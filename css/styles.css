@@ -25,8 +25,10 @@
   --accent-pink: var(--magenta);
   --tone-deep: var(--charcoal);
   --tone-mid: var(--navy);
-  /* Hero + Works section fill: deep saturated blue (not the old pale sky wash). */
+  /* Legacy name: was saturated blue behind works; #works now uses --works-strip-backdrop. */
   --hero-works-surface: color-mix(in srgb, var(--navy) 58%, var(--sky) 42%);
+  /* Wash behind work-strip “boxes” (shows in wave gaps / edges) */
+  --works-strip-backdrop: color-mix(in srgb, var(--sky-mist) 18%, #ffffff 82%);
   /* #about (and #works lower half) solid fill */
   --about-bg: #15225d;
   /* Slightly below 4rem so nav + layout match a typical local window vs wide fullscreen on gh-pages */
@@ -189,7 +191,7 @@ section {
   padding: calc(var(--nav-h) + 0.5rem) 0 0;
   overflow: visible;
   box-sizing: border-box;
-  background: var(--hero-works-surface);
+  background: var(--works-strip-backdrop);
 }
 
 /* About + Contact standalone page: clear fixed nav */
@@ -702,6 +704,7 @@ body.page-about-contact #about {
   font-size: inherit;
   font-weight: inherit;
   line-height: normal;
+  text-align: center;
 }
 
 /* HHC + Tomato: slight extra padding above the wordmark panel (set on <body>) */
@@ -714,8 +717,9 @@ body.project-wordmark-head-space .project-split__text {
   width: 100%;
   max-width: 100%;
   height: auto;
+  margin-inline: auto;
   object-fit: contain;
-  object-position: left top;
+  object-position: center top;
 }
 
 .project-split__text .project-meta {
@@ -915,6 +919,8 @@ body.project-wordmark-head-space .project-split__text {
 #hhc-gallery .project-gallery__item--hero {
   height: auto;
   min-height: 0;
+  width: 100%;
+  max-width: 100%;
   /* Match .project-gallery__item — clip children to rounded corners */
   overflow: hidden;
   border-radius: 6px;
@@ -923,12 +929,14 @@ body.project-wordmark-head-space .project-split__text {
 #hhc-gallery .project-gallery__item--hero img {
   position: relative;
   inset: auto;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
   display: block;
-  object-fit: unset;
-  object-position: unset;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center center;
+  border-radius: 6px;
+  vertical-align: middle;
 }
 
 @media (max-width: 51.99rem) {
@@ -1060,14 +1068,14 @@ body.project-wordmark-head-space .project-split__text {
  */
 #strings-gallery.project-gallery--strings-mosaic {
   width: 100%;
-  max-width: min(58rem, 100%);
+  max-width: min(66rem, 100%);
   margin-inline: auto;
 }
 
 @media (min-width: 52rem) {
   .project-gallery--strings-mosaic {
-    /* Wider lead column; right pair stays a balanced 2×2 */
-    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr) minmax(0, 1fr);
+    /* Wide lead column (tall hero) + right 2×2 pair */
+    grid-template-columns: minmax(0, 2.55fr) minmax(0, 0.88fr) minmax(0, 0.88fr);
   }
 
   .project-gallery--strings-mosaic > .project-gallery__item:nth-child(1) {
@@ -1360,6 +1368,12 @@ body.project-wordmark-head-space .project-split__text {
 
 /* ——— Five work project pages (HHC, Strings, Cr8Dig, Tomato, Delight): smaller type + media ——— */
 
+/* Center image/embed column in the main (blue) area when width is capped */
+.project-page--split .project-split__images {
+  margin-inline: auto;
+  width: 100%;
+}
+
 .project-page--split .project-back {
   font-size: 0.75rem;
   margin-bottom: 1.25rem;
@@ -1388,6 +1402,8 @@ body.project-wordmark-head-space .project-split__text {
 
 .project-page--split .project-split__text .project-split__wordmark-img {
   max-width: 92%;
+  margin-inline: auto;
+  object-position: center top;
 }
 
 .project-page--split .project-split {
@@ -1397,6 +1413,7 @@ body.project-wordmark-head-space .project-split__text {
 @media (min-width: 56rem) {
   .project-page.project-page--split .project-split__images {
     max-width: 62rem;
+    margin-inline: auto;
   }
 
   .project-page.project-page--split {
@@ -1437,9 +1454,20 @@ body.project-wordmark-head-space .project-split__text {
   }
 }
 
+/* HHC label (hero): full bleed with rows above; same radius; aspect preserved */
+.project-page--split #hhc-gallery .project-gallery__item--hero {
+  width: 100%;
+  max-width: 100%;
+}
+
 .project-page--split #hhc-gallery .project-gallery__item--hero img {
-  max-width: 95%;
-  margin-inline: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  height: auto;
+  object-fit: contain;
+  object-position: center center;
+  border-radius: 6px;
 }
 
 .project-page--split #tomato-gallery .project-gallery__item--hero {
@@ -1463,7 +1491,8 @@ body.project-wordmark-head-space .project-split__text {
 }
 
 .project-page--split #strings-gallery.project-gallery--strings-mosaic {
-  max-width: min(54rem, 100%);
+  max-width: min(64rem, 100%);
+  margin-inline: auto;
 }
 
 .project-page--split .project-site-embed__frame {
