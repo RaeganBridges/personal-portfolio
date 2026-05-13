@@ -646,7 +646,8 @@ body.page-about-contact #contact .section-inner {
 }
 
 body.page-about-contact #contact .section-inner {
-  padding-top: clamp(0.85rem, 2.25vw, 1.75rem);
+  padding-top: clamp(0.45rem, 1.35vw, 1rem);
+  padding-bottom: clamp(0.65rem, 1.75vw, 1.35rem);
 }
 
 #about h2,
@@ -779,6 +780,7 @@ body.page-about-contact #contact .section-inner {
 body.page-about-contact #contact {
   margin-top: clamp(-5.85rem, -12vw, -3.85rem);
   padding-top: clamp(0.15rem, 0.85vw, 0.5rem);
+  padding-bottom: clamp(1.75rem, 5vw, 3.5rem);
   position: relative;
   z-index: 1;
 }
@@ -787,10 +789,30 @@ body.page-about-contact #contact {
   color: var(--navy);
 }
 
+body.page-about-contact #contact h2 {
+  font-size: clamp(1.35rem, 3.25vw, 1.9rem);
+  margin: 0 0 0.4rem;
+}
+
 #contact p {
   color: color-mix(in srgb, var(--charcoal) 70%, var(--navy) 30%);
   max-width: 36rem;
   margin: 0 0 2rem;
+}
+
+body.page-about-contact #contact p {
+  font-size: clamp(0.78rem, 0.72rem + 0.22vw, 0.875rem);
+  line-height: 1.45;
+  margin: 0 0 0.85rem;
+  max-width: min(28rem, 100%);
+}
+
+body.page-about-contact #contact .contact-links {
+  gap: 0.5rem 1.1rem;
+}
+
+body.page-about-contact #contact .contact-links a {
+  font-size: clamp(0.78rem, 0.72rem + 0.18vw, 0.875rem);
 }
 
 .contact-links {
