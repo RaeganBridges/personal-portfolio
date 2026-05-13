@@ -35,12 +35,15 @@
   --nav-h: 2.65rem;
   /* Logo + Works + Contact: same viewport inset on every page */
   --site-inline-gutter-x: clamp(1.25rem, 4vw, 2.5rem);
-  /* Match sticky .site-inline-nav height so #works-strips / in-page anchors aren’t tucked under the row */
+  /* Sticky .site-inline-nav logo (shared height for scroll-padding + img rules) */
+  --site-inline-nav-logo-h: clamp(2.2rem, 5.25vw, 3rem);
+  --site-inline-nav-logo-max-w: 280px;
+  /* Match sticky .site-inline-nav height; #works-strips targets first strip (HHC top / parallelogram apex) */
   --site-inline-scroll-pad: max(
     4.25rem,
     calc(
       max(1.5rem, 0.85rem + env(safe-area-inset-top, 0px))
-      + clamp(1.28rem, 2.85vw, 1.58rem)
+      + var(--site-inline-nav-logo-h)
       + max(0.35rem, env(safe-area-inset-bottom, 0px))
       + 1rem
     )
@@ -62,6 +65,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--site-inline-scroll-pad);
   overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   background-color: color-mix(in srgb, var(--sky-pale) 64%, var(--sky-lighter) 36%);
   /* Avoid mobile browsers inflating type vs desktop devtools / local file preview */
@@ -72,6 +76,7 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   background-color: color-mix(
     in srgb,
@@ -284,9 +289,9 @@ article.project-page > .site-inline-nav {
 #works > .site-inline-nav .site-inline-nav__brand img,
 #about > .site-inline-nav .site-inline-nav__brand img {
   display: block;
-  height: clamp(1.28rem, 2.85vw, 1.58rem);
+  height: var(--site-inline-nav-logo-h);
   width: auto;
-  max-width: 140px;
+  max-width: var(--site-inline-nav-logo-max-w);
   object-fit: contain;
   filter: brightness(0) invert(1) drop-shadow(0 1px 2px color-mix(in srgb, var(--charcoal) 45%, transparent));
 }
@@ -309,12 +314,75 @@ article.project-page > .site-inline-nav {
   border-bottom-color: var(--pink-rose);
 }
 
+/* Fade wash behind sticky top nav — top-left corner only (logo + links stay readable) */
+body.home #works > .site-inline-nav::after {
+  content: "";
+  position: absolute;
+  /* Bleed into nav’s horizontal padding so the wash reaches the viewport / safe-area edge */
+  left: calc(-1 * max(env(safe-area-inset-left, 0px), var(--site-inline-gutter-x)));
+  right: auto;
+  top: 0;
+  width: calc(min(28rem, 92vw) + max(env(safe-area-inset-left, 0px), var(--site-inline-gutter-x)));
+  height: clamp(7.25rem, 22vw, 10.5rem);
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    120% 100% at 0% 0%,
+    var(--works-strip-backdrop) 0%,
+    var(--works-strip-backdrop) 18%,
+    color-mix(in srgb, var(--works-strip-backdrop) 99%, transparent) 28%,
+    color-mix(in srgb, var(--works-strip-backdrop) 94%, transparent) 40%,
+    color-mix(in srgb, var(--works-strip-backdrop) 82%, transparent) 54%,
+    color-mix(in srgb, var(--works-strip-backdrop) 58%, transparent) 68%,
+    color-mix(in srgb, var(--works-strip-backdrop) 32%, transparent) 82%,
+    color-mix(in srgb, var(--works-strip-backdrop) 10%, transparent) 92%,
+    transparent 100%
+  );
+  /* Fade fully to clear on the right edge of the wash (into the strips / page) */
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+body.page-about-contact #about > .site-inline-nav::after {
+  content: "";
+  position: absolute;
+  left: calc(-1 * max(env(safe-area-inset-left, 0px), var(--site-inline-gutter-x)));
+  right: auto;
+  top: 0;
+  width: calc(min(28rem, 92vw) + max(env(safe-area-inset-left, 0px), var(--site-inline-gutter-x)));
+  height: clamp(7.25rem, 22vw, 10.5rem);
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    120% 100% at 0% 0%,
+    var(--about-bg) 0%,
+    var(--about-bg) 18%,
+    color-mix(in srgb, var(--about-bg) 99%, transparent) 28%,
+    color-mix(in srgb, var(--about-bg) 94%, transparent) 40%,
+    color-mix(in srgb, var(--about-bg) 82%, transparent) 54%,
+    color-mix(in srgb, var(--about-bg) 58%, transparent) 68%,
+    color-mix(in srgb, var(--about-bg) 32%, transparent) 82%,
+    color-mix(in srgb, var(--about-bg) 10%, transparent) 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
 /* Light: project pages on body gradient */
 article.project-page > .site-inline-nav .site-inline-nav__brand img {
   display: block;
-  height: clamp(1.28rem, 2.85vw, 1.58rem);
+  height: var(--site-inline-nav-logo-h);
   width: auto;
-  max-width: 140px;
+  max-width: var(--site-inline-nav-logo-max-w);
   object-fit: contain;
 }
 
@@ -349,6 +417,11 @@ body.page-about-contact #about {
   flex-direction: column;
   gap: 0;
   overflow-x: clip;
+}
+
+/* Home: #works-strips = first work strip — scroll lands at strip top (same line as parallelogram top-right) */
+#works-strips {
+  scroll-margin-top: var(--site-inline-scroll-pad);
 }
 
 .work-strip {
@@ -423,39 +496,53 @@ body.page-about-contact #about {
 }
 
 .work-strip--2 a {
-  background-image: url("../images/spreads/STRINGS.png");
+  background-image: url("../images/spreads/CT-01.png");
+  background-size: 101% auto;
+  background-position: center;
+}
+
+.work-strip--2 a:hover,
+.work-strip--2 a:focus-visible {
+  background-image: url("../videos/Tomato.gif");
   background-size: 101% auto;
   background-position: center;
 }
 
 .work-strip--3 a {
-  background-image: url("../images/spreads/CR8DIG.png");
+  background-image: url("../images/spreads/Delight-01.png");
+  background-size: 101% auto;
+  background-position: center;
+}
+
+.work-strip--3 a:hover,
+.work-strip--3 a:focus-visible {
+  background-image: url("../videos/Delight.gif");
   background-size: 101% auto;
   background-position: center;
 }
 
 .work-strip--4 a {
-  background-image: url("../images/spreads/CT-01.png");
+  background-image: url("../images/spreads/Time-01.png");
   background-size: 101% auto;
   background-position: center;
 }
 
 .work-strip--4 a:hover,
 .work-strip--4 a:focus-visible {
-  background-image: url("../videos/Tomato.gif");
+  background-image: url("../videos/Time.gif");
   background-size: 101% auto;
   background-position: center;
 }
 
 .work-strip--5 a {
-  background-image: url("../images/spreads/Delight-01.png");
+  background-image: url("../images/spreads/CR8DIG-01.png");
   background-size: 101% auto;
   background-position: center;
 }
 
 .work-strip--5 a:hover,
 .work-strip--5 a:focus-visible {
-  background-image: url("../videos/Delight.gif");
+  background-image: url("../videos/CR8DIG.gif");
   background-size: 101% auto;
   background-position: center;
 }
@@ -757,8 +844,8 @@ body.page-about-contact #about {
 
 .project-page--split {
   max-width: min(96vw, 84rem);
-  /* Slightly narrower text rail on the five split work pages → more room for media */
-  --delight-text-panel-w: min(22rem, 35vw);
+  /* Fixed text rail width (desktop) — padding-right matches so media column clears the panel */
+  --delight-text-panel-w: min(26rem, 39vw);
 }
 
 .project-split {
@@ -779,6 +866,7 @@ body.page-about-contact #about {
     padding-top: 0;
     padding-bottom: 4rem;
     box-sizing: border-box;
+    overflow-x: clip;
   }
 
   .project-split {
@@ -821,8 +909,15 @@ body.page-about-contact #about {
   .project-split__text:has(.project-meta--split-rail-footer) .project-split__rail-body {
     flex: 1 1 auto;
     min-height: 0;
+    min-width: 0;
+    overflow-x: hidden;
     overflow-y: auto;
   }
+}
+
+/* Split rail: title block stays put; only body copy scrolls inside .project-split__rail-body */
+.project-split__text:has(.project-meta--split-rail-footer) > .project-page__intro {
+  flex-shrink: 0;
 }
 
 .project-split__images {
@@ -863,6 +958,8 @@ body.page-about-contact #about {
   .project-split__text:has(.project-meta--split-rail-footer) .project-split__rail-body {
     flex: 1 1 auto;
     min-height: 0;
+    min-width: 0;
+    overflow-x: hidden;
     overflow-y: auto;
   }
 }
@@ -921,6 +1018,7 @@ body.project-wordmark-head-space .project-split__text {
 
 .project-split__text .project-page__intro {
   margin-bottom: 0;
+  overflow-x: hidden;
 }
 
 .project-split__text .project-split__body-text {
@@ -928,19 +1026,57 @@ body.project-wordmark-head-space .project-split__text {
   text-align: left;
 }
 
-/* Delight campaign copy — smaller than default .project-page .body-text (replaces dev gallery hint on page) */
-.project-split__text .project-split__body-text--delight {
+/* Delight + Tomato + Cr8Dig + Strings + HHC campaign copy — smaller than default .project-page .body-text */
+.project-split__text .project-split__body-text--delight,
+.project-split__text .project-split__body-text--tomato,
+.project-split__text .project-split__body-text--cr8dig,
+.project-split__text .project-split__body-text--strings,
+.project-split__text .project-split__body-text--hhc {
   font-size: clamp(0.78rem, 0.72rem + 0.35vw, 0.88rem);
   line-height: 1.55;
   color: color-mix(in srgb, var(--charcoal) 72%, var(--navy) 28%);
 }
 
-.project-split__text .project-split__body-text--delight p {
+.project-split__text .project-split__body-text--delight p,
+.project-split__text .project-split__body-text--tomato p,
+.project-split__text .project-split__body-text--cr8dig p,
+.project-split__text .project-split__body-text--strings p,
+.project-split__text .project-split__body-text--hhc p {
   margin: 0 0 1rem;
 }
 
 .project-split__text .project-split__body-text p:last-child {
   margin-bottom: 0;
+}
+
+/* Cr8Dig rail: tighter vertical rhythm so copy + wordmark + meta fit without inner scroll */
+@media (min-width: 56rem) {
+  .project-page--cr8dig.project-page--split .project-split__text {
+    padding-top: clamp(0.25rem, 0.9vw, 0.55rem);
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+.project-page--cr8dig.project-page--split .project-split__text #cr8dig-heading.project-split__wordmark {
+  margin: -0.35rem 0 0.45rem;
+}
+
+.project-page--cr8dig.project-page--split .project-split__text .project-split__body-text--cr8dig {
+  margin-top: 0.35rem;
+}
+
+.project-page--cr8dig.project-page--split .project-split__text .project-split__body-text--cr8dig p {
+  margin: 0 0 0.65rem;
+}
+
+.project-page--cr8dig.project-page--split .project-split__text .project-meta.project-meta--split-rail-footer {
+  padding-top: clamp(0.45rem, 1.2vw, 1rem);
+}
+
+@media (max-width: 55.99rem) {
+  .project-page--cr8dig.project-page--split .project-split__text .project-split__body-text--cr8dig {
+    margin-top: 0.25rem;
+  }
 }
 
 .project-page__intro {
@@ -1654,6 +1790,9 @@ body.project-wordmark-head-space .project-split__text {
 .project-page--split .project-split__images {
   margin-inline: auto;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
 }
 
 .project-page--split .project-back {
@@ -1711,8 +1850,26 @@ body.project-wordmark-head-space .project-split__text {
   transform-origin: center top;
 }
 
+/* Tomato wordmark — a touch smaller than Delight */
+.project-page--split .project-split__text #tomato-heading.project-split__wordmark .project-split__wordmark-img {
+  max-width: 100%;
+  width: 100%;
+  transform: scale(1.125);
+  transform-origin: center top;
+}
+
+/* Cr8Dig wordmark — slightly larger than default rail wordmark */
+.project-page--split .project-split__text #cr8dig-heading.project-split__wordmark .project-split__wordmark-img {
+  max-width: 100%;
+  width: 100%;
+  transform: scale(1.1);
+  transform-origin: center top;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .project-page--split .project-split__text #delight-heading.project-split__wordmark .project-split__wordmark-img {
+  .project-page--split .project-split__text #delight-heading.project-split__wordmark .project-split__wordmark-img,
+  .project-page--split .project-split__text #tomato-heading.project-split__wordmark .project-split__wordmark-img,
+  .project-page--split .project-split__text #cr8dig-heading.project-split__wordmark .project-split__wordmark-img {
     transform: none;
   }
 }
@@ -1724,7 +1881,8 @@ body.project-wordmark-head-space .project-split__text {
 @media (min-width: 56rem) {
   .project-page.project-page--split .project-split__images {
     max-width: 56rem;
-    margin-inline: auto;
+    margin-left: 0;
+    margin-right: auto;
   }
 }
 
