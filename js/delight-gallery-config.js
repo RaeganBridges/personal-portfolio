@@ -1,7 +1,7 @@
 /**
  * Delight project gallery — edit this file to change order and layout on the page.
  *
- * Layout is driven by css/styles.css (#delight-gallery): row 1 Table-B + Pins; row 2 three equal tiles (Stickers + two photos).
+ * Layout is driven by css/styles.css (#delight-gallery): row 1 Table-B + Pins; row 2 three equal cards (Stickers + two photos).
  * Keep wide: false here unless you change that CSS.
  *
  * After saving, refresh delight.html to see changes.

@@ -657,6 +657,12 @@ body.page-about-contact #contact .section-inner {
   margin: 0 0 1rem;
 }
 
+body.page-about-contact #about h2,
+body.page-about-contact #contact h2 {
+  font-size: clamp(1.35rem, 3.25vw, 1.9rem);
+  margin: 0 0 0.4rem;
+}
+
 #about h2 {
   color: var(--text);
 }
@@ -708,8 +714,25 @@ body.page-about-contact #contact .section-inner {
   margin-bottom: 1.25rem;
 }
 
-#about .about-copy p:last-of-type {
+/* About page: About Me + Contact share one type scale */
+body.page-about-contact #about .about-copy p,
+body.page-about-contact #about .about-copy p.lead,
+body.page-about-contact #contact p {
+  font-size: clamp(0.78rem, 0.72rem + 0.22vw, 0.875rem);
+  line-height: 1.45;
+  margin: 0 0 0.85rem;
+}
+
+body.page-about-contact #contact p {
+  max-width: min(28rem, 100%);
+}
+
+body.page-about-contact #about .about-copy p:last-of-type {
   margin-bottom: 0;
+}
+
+body.page-about-contact #contact .contact-links a {
+  font-size: clamp(0.78rem, 0.72rem + 0.22vw, 0.875rem);
 }
 
 #about ul {
@@ -789,30 +812,14 @@ body.page-about-contact #contact {
   color: var(--navy);
 }
 
-body.page-about-contact #contact h2 {
-  font-size: clamp(1.35rem, 3.25vw, 1.9rem);
-  margin: 0 0 0.4rem;
-}
-
 #contact p {
   color: color-mix(in srgb, var(--charcoal) 70%, var(--navy) 30%);
   max-width: 36rem;
   margin: 0 0 2rem;
 }
 
-body.page-about-contact #contact p {
-  font-size: clamp(0.78rem, 0.72rem + 0.22vw, 0.875rem);
-  line-height: 1.45;
-  margin: 0 0 0.85rem;
-  max-width: min(28rem, 100%);
-}
-
 body.page-about-contact #contact .contact-links {
   gap: 0.5rem 1.1rem;
-}
-
-body.page-about-contact #contact .contact-links a {
-  font-size: clamp(0.78rem, 0.72rem + 0.18vw, 0.875rem);
 }
 
 .contact-links {
@@ -1047,6 +1054,11 @@ body.page-about-contact #contact .contact-links a {
   text-align: center;
 }
 
+/* HHC wordmark — hairline space above title (shared wordmark margin is slightly negative) */
+.project-page--split .project-split__text #hhc-heading.project-split__wordmark {
+  margin-top: 0.15rem;
+}
+
 /* HHC + Tomato: slight extra padding above the wordmark panel (set on <body>) */
 body.project-wordmark-head-space .project-split__text {
   padding-top: clamp(0.7rem, 1.9vw, 1.2rem);
@@ -1149,7 +1161,7 @@ body.project-wordmark-head-space .project-split__text {
 }
 
 .project-site-embed {
-  margin-top: clamp(1.25rem, 3vw, 2rem);
+  margin-top: clamp(3rem, 5.5vw, 4.5rem);
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--sky-lighter) 40%, transparent);
@@ -1368,14 +1380,15 @@ body.project-wordmark-head-space .project-split__text {
   }
 }
 
-/* Tomato: dark green stage — flex centers the spread (absolute + scale looked off-axis). */
+/* Tomato: transparent box — GIF contained inside hero bounds */
 #tomato-gallery .project-gallery__item--hero {
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #0f2918;
-  height: min(68vh, 800px);
+  background: transparent;
+  border-radius: 6px;
+  height: min(calc(100svh - 2rem), 2800px);
 }
 
 #tomato-gallery .project-gallery__item--hero img {
@@ -1388,13 +1401,13 @@ body.project-wordmark-head-space .project-split__text {
   object-fit: contain;
   object-position: center;
   box-shadow: none;
-  transform: scale(1.46);
+  transform: translateY(-2.75rem) scale(1.28);
   transform-origin: center center;
 }
 
 @media (max-width: 51.99rem) {
   #tomato-gallery .project-gallery__item--hero {
-    height: min(60vh, 700px);
+    height: min(calc(100svh - 3rem), 2200px);
   }
 }
 
@@ -1404,6 +1417,7 @@ body.project-wordmark-head-space .project-split__text {
 #delight-gallery.project-gallery {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   align-items: stretch;
+  margin-top: clamp(1rem, 2.4vw, 1.75rem);
 }
 
 @media (min-width: 52rem) {
@@ -1438,6 +1452,7 @@ body.project-wordmark-head-space .project-split__text {
   object-fit: contain;
   object-position: center;
   flex-shrink: 0;
+  border-radius: 6px;
 }
 
 #delight-gallery .project-gallery__item:nth-child(1) img {
@@ -1446,37 +1461,55 @@ body.project-wordmark-head-space .project-split__text {
   object-position: center;
 }
 
-/* Row 2: three equal columns (Stickers + two photos) */
+/* Row 2: three equal columns — equal height cards; media fills frame (cover) */
 #delight-gallery .project-gallery__item:nth-child(3),
 #delight-gallery .project-gallery__item:nth-child(4),
 #delight-gallery .project-gallery__item:nth-child(5) {
   grid-column: span 4;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: stretch;
   min-height: 0;
-  background: transparent;
-  aspect-ratio: 1;
-  max-height: min(40vw, 440px);
   width: 100%;
-  max-width: 100%;
-  margin-inline: auto;
+  height: clamp(13rem, 36vw, 24rem);
+  border-radius: 12px;
+  overflow: hidden;
+  background: color-mix(in srgb, #fff 90%, var(--sky-pale));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--sky-lighter) 32%, transparent);
 }
 
 #delight-gallery .project-gallery__item:nth-child(3) img,
 #delight-gallery .project-gallery__item:nth-child(4) img,
 #delight-gallery .project-gallery__item:nth-child(5) img {
+  align-self: stretch;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+/* Stickers (row 2, first tile): inset gif slightly; no card fill */
+#delight-gallery .project-gallery__item:nth-child(3) {
+  background: transparent;
+  box-shadow: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#delight-gallery .project-gallery__item:nth-child(3) img {
   width: 100%;
   height: 100%;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   object-position: center;
+  align-self: center;
   flex-shrink: 0;
-}
-
-#delight-gallery .project-gallery__item img {
-  border-radius: 6px;
+  transform: scale(1.1);
+  transform-origin: center center;
 }
 
 @media (max-width: 36rem) {
@@ -1500,16 +1533,35 @@ body.project-wordmark-head-space .project-split__text {
   #delight-gallery .project-gallery__item:nth-child(3),
   #delight-gallery .project-gallery__item:nth-child(4),
   #delight-gallery .project-gallery__item:nth-child(5) {
-    aspect-ratio: auto;
-    max-height: none;
+    height: min(78vw, 22rem);
+    min-height: min(78vw, 22rem);
   }
 
   #delight-gallery .project-gallery__item:nth-child(3) img,
   #delight-gallery .project-gallery__item:nth-child(4) img,
   #delight-gallery .project-gallery__item:nth-child(5) img {
     width: 100%;
-    height: auto;
-    max-height: min(88vw, 480px);
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    max-height: none;
+  }
+
+  #delight-gallery .project-gallery__item:nth-child(3) {
+    background: transparent;
+    box-shadow: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #delight-gallery .project-gallery__item:nth-child(3) img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transform: scale(1.1);
+    transform-origin: center center;
   }
 }
 
@@ -1521,6 +1573,7 @@ body.project-wordmark-head-space .project-split__text {
   width: 100%;
   max-width: min(56rem, 100%);
   margin-inline: auto;
+  margin-top: clamp(1.35rem, 3.2vw, 2.5rem);
   /* Space between lead + 2×2 and between the four tiles (row + column) */
   gap: clamp(0.45rem, 1.15vw, 0.8rem);
 }
@@ -1880,7 +1933,7 @@ body.project-wordmark-head-space .project-split__text {
 .project-page--split .project-back {
   font-size: 0.75rem;
   /* First row on these pages (no sticky site nav) — clear the top / notch */
-  margin-top: max(1.35rem, calc(0.75rem + env(safe-area-inset-top, 0px)));
+  margin-top: max(1.725rem, calc(1.125rem + env(safe-area-inset-top, 0px)));
   margin-bottom: 1.25rem;
 }
 
@@ -1948,10 +2001,20 @@ body.project-wordmark-head-space .project-split__text {
   transform-origin: center top;
 }
 
+/* Strings wordmark (Time) — larger title in the text rail; slight top/bottom crop */
+.project-page--split .project-split__text #strings-heading.project-split__wordmark .project-split__wordmark-img {
+  max-width: 100%;
+  width: 100%;
+  transform: scale(1.14);
+  transform-origin: center top;
+  clip-path: inset(2.25% 0 2.25% 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .project-page--split .project-split__text #delight-heading.project-split__wordmark .project-split__wordmark-img,
   .project-page--split .project-split__text #tomato-heading.project-split__wordmark .project-split__wordmark-img,
-  .project-page--split .project-split__text #cr8dig-heading.project-split__wordmark .project-split__wordmark-img {
+  .project-page--split .project-split__text #cr8dig-heading.project-split__wordmark .project-split__wordmark-img,
+  .project-page--split .project-split__text #strings-heading.project-split__wordmark .project-split__wordmark-img {
     transform: none;
   }
 }
@@ -1961,10 +2024,26 @@ body.project-wordmark-head-space .project-split__text {
 }
 
 @media (min-width: 56rem) {
+  /* Split work pages: media column centered in the blue area, nudged left (same as Delight) */
   .project-page.project-page--split .project-split__images {
-    max-width: 56rem;
-    margin-left: 0;
-    margin-right: auto;
+    max-width: 58rem;
+    margin-inline: auto;
+    transform: translateX(-1.75rem);
+  }
+
+  /* Delight: slightly wider grid than the shared split column cap */
+  .project-page.project-page--split .project-split__images:has(#delight-gallery) {
+    max-width: 60rem;
+  }
+
+  /* Tomato: wider media column so the hero box can grow horizontally */
+  .project-page.project-page--split .project-split__images:has(#tomato-gallery) {
+    max-width: 68rem;
+  }
+
+  /* HHC: slightly narrower grid than the shared split column cap */
+  .project-page.project-page--split .project-split__images:has(#hhc-gallery) {
+    max-width: 52rem;
   }
 }
 
@@ -2024,23 +2103,13 @@ body.project-wordmark-head-space .project-split__text {
 }
 
 .project-page--split #tomato-gallery .project-gallery__item--hero {
-  height: min(62vh, 740px);
-}
-
-.project-page--split #tomato-gallery .project-gallery__item--hero img {
-  transform: scale(1.36);
+  height: min(calc(100svh - 2rem), 2600px);
 }
 
 @media (max-width: 51.99rem) {
   .project-page--split #tomato-gallery .project-gallery__item--hero {
-    height: min(54vh, 640px);
+    height: min(calc(100svh - 3rem), 2100px);
   }
-}
-
-.project-page--split #delight-gallery .project-gallery__item:nth-child(3) img,
-.project-page--split #delight-gallery .project-gallery__item:nth-child(4) img,
-.project-page--split #delight-gallery .project-gallery__item:nth-child(5) img {
-  max-height: min(44vh, 420px);
 }
 
 .project-page--split .project-site-embed__frame {
