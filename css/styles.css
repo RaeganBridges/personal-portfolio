@@ -403,6 +403,7 @@ article.project-page > .site-inline-nav .site-inline-nav__links a:focus-visible 
 /* About + Contact: inline nav sits inside #about (no extra top pad for removed fixed bar) */
 body.page-about-contact #about {
   padding-top: 0;
+  padding-bottom: clamp(0.75rem, 1.65vw, 1.25rem);
 }
 
 /*
@@ -646,7 +647,7 @@ body.page-about-contact #contact .section-inner {
 }
 
 body.page-about-contact #contact .section-inner {
-  padding-top: clamp(0.45rem, 1.35vw, 1rem);
+  padding-top: clamp(0.75rem, 1.85vw, 1.35rem);
   padding-bottom: clamp(0.65rem, 1.75vw, 1.35rem);
 }
 
@@ -802,7 +803,7 @@ body.page-about-contact #contact .contact-links a {
 
 body.page-about-contact #contact {
   margin-top: clamp(-5.85rem, -12vw, -3.85rem);
-  padding-top: clamp(0.15rem, 0.85vw, 0.5rem);
+  padding-top: clamp(0.4rem, 1.15vw, 0.85rem);
   padding-bottom: clamp(1.75rem, 5vw, 3.5rem);
   position: relative;
   z-index: 1;
@@ -1062,6 +1063,11 @@ body.page-about-contact #contact .contact-links {
 /* HHC + Tomato: slight extra padding above the wordmark panel (set on <body>) */
 body.project-wordmark-head-space .project-split__text {
   padding-top: clamp(0.7rem, 1.9vw, 1.2rem);
+}
+
+/* Strings (Time wordmark): a touch less space above the title than other wordmark pages */
+body.project-wordmark-head-space .project-split__text:has(#strings-heading) {
+  padding-top: clamp(0.35rem, 0.95vw, 0.65rem);
 }
 
 .project-split__text .project-split__wordmark-img {
@@ -2033,7 +2039,7 @@ body.project-wordmark-head-space .project-split__text {
 
   /* Delight: slightly wider grid than the shared split column cap */
   .project-page.project-page--split .project-split__images:has(#delight-gallery) {
-    max-width: 57rem;
+    max-width: 55rem;
   }
 
   /* Tomato: wider media column so the hero box can grow horizontally */
@@ -2043,7 +2049,7 @@ body.project-wordmark-head-space .project-split__text {
 
   /* HHC: slightly narrower grid than the shared split column cap */
   .project-page.project-page--split .project-split__images:has(#hhc-gallery) {
-    max-width: 48rem;
+    max-width: 46rem;
   }
 }
 
