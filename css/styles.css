@@ -1091,14 +1091,14 @@ body.project-wordmark-head-space .project-split__text {
   text-align: left;
 }
 
-/* Delight + Tomato + Cr8Dig + Strings + HHC campaign copy — smaller than default .project-page .body-text */
+/* Delight + Tomato + Cr8Dig + Strings + HHC campaign copy — compact rail type */
 .project-split__text .project-split__body-text--delight,
 .project-split__text .project-split__body-text--tomato,
 .project-split__text .project-split__body-text--cr8dig,
 .project-split__text .project-split__body-text--strings,
 .project-split__text .project-split__body-text--hhc {
-  font-size: clamp(0.78rem, 0.72rem + 0.35vw, 0.88rem);
-  line-height: 1.55;
+  font-size: clamp(0.7rem, 0.64rem + 0.28vw, 0.78rem);
+  line-height: 1.5;
   color: color-mix(in srgb, var(--charcoal) 72%, var(--navy) 28%);
 }
 
@@ -1107,7 +1107,7 @@ body.project-wordmark-head-space .project-split__text {
 .project-split__text .project-split__body-text--cr8dig p,
 .project-split__text .project-split__body-text--strings p,
 .project-split__text .project-split__body-text--hhc p {
-  margin: 0 0 1rem;
+  margin: 0 0 0.85rem;
 }
 
 .project-split__text .project-split__body-text p:last-child {
