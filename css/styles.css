@@ -2001,13 +2001,13 @@ body.project-wordmark-head-space .project-split__text {
   transform-origin: center top;
 }
 
-/* Strings wordmark (Time) — larger title in the text rail; slight top/bottom crop */
+/* Strings wordmark (Time) — larger title in the text rail; top/bottom crop */
 .project-page--split .project-split__text #strings-heading.project-split__wordmark .project-split__wordmark-img {
   max-width: 100%;
   width: 100%;
   transform: scale(1.14);
   transform-origin: center top;
-  clip-path: inset(2.25% 0 2.25% 0);
+  clip-path: inset(6% 0 6% 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2033,7 +2033,7 @@ body.project-wordmark-head-space .project-split__text {
 
   /* Delight: slightly wider grid than the shared split column cap */
   .project-page.project-page--split .project-split__images:has(#delight-gallery) {
-    max-width: 60rem;
+    max-width: 57rem;
   }
 
   /* Tomato: wider media column so the hero box can grow horizontally */
@@ -2043,7 +2043,7 @@ body.project-wordmark-head-space .project-split__text {
 
   /* HHC: slightly narrower grid than the shared split column cap */
   .project-page.project-page--split .project-split__images:has(#hhc-gallery) {
-    max-width: 52rem;
+    max-width: 48rem;
   }
 }
 
