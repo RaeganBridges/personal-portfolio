@@ -50,7 +50,7 @@
   );
   --strip-angle: 8deg;
   --strip-tan: tan(var(--strip-angle));
-  --strip-h: clamp(11.5rem, 38vh, 44vh);
+  --strip-h: 50vh;
   --strip-offset: calc(100vw * var(--strip-tan));
   font-family: "DM Sans", system-ui, sans-serif;
 }
@@ -430,7 +430,7 @@ body.page-about-contact #about {
   width: 100%;
   max-width: 100%;
   height: calc(var(--strip-h) + var(--strip-offset));
-  min-height: calc(240px + var(--strip-offset));
+  min-height: calc(280px + var(--strip-offset));
   /* Straight parallelogram; js/work-strip-wave.js upgrades to a subtle wave when supported. */
   clip-path: polygon(
     0 var(--strip-offset),
