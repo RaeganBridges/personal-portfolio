@@ -649,15 +649,28 @@ body.page-about-contact #about .section-inner {
   padding-top: clamp(1.25rem, 3.25vw, 2.5rem);
 }
 
-/* About page: tuck copy a hair left while respecting safe-area */
-body.page-about-contact #about .section-inner,
-body.page-about-contact #contact .section-inner {
+/* About page: About copy horizontal inset */
+body.page-about-contact #about .section-inner {
   padding-left: max(env(safe-area-inset-left, 0px), calc(var(--site-inline-gutter-x) - 0.75rem));
+  padding-right: max(env(safe-area-inset-right, 0px), var(--site-inline-gutter-x));
 }
 
 body.page-about-contact #contact .section-inner {
+  margin-left: max(0px, calc((100% - min(72rem, 100%)) * 0.499));
+  margin-right: auto;
   padding-top: clamp(1.05rem, 2.35vw, 1.75rem);
   padding-bottom: clamp(0.65rem, 1.75vw, 1.35rem);
+  padding-left: max(env(safe-area-inset-left, 0px), calc(var(--site-inline-gutter-x) - 0.75rem));
+  padding-right: max(env(safe-area-inset-right, 0px), var(--site-inline-gutter-x));
+  flex: 0 0 auto;
+  align-self: stretch;
+  text-align: left;
+}
+
+/* Same typographic measure as .about-copy for Contact heading + links */
+body.page-about-contact #contact .section-inner > #contact-heading,
+body.page-about-contact #contact .section-inner > .contact-links {
+  max-width: min(70rem, 100%);
 }
 
 #about h2,
@@ -819,6 +832,8 @@ body.page-about-contact #contact {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 #contact h2 {
@@ -833,6 +848,7 @@ body.page-about-contact #contact {
 
 body.page-about-contact #contact .contact-links {
   gap: 0.5rem 1.1rem;
+  justify-content: flex-start;
 }
 
 .contact-links {
