@@ -647,7 +647,7 @@ body.page-about-contact #contact .section-inner {
 }
 
 body.page-about-contact #contact .section-inner {
-  padding-top: clamp(0.75rem, 1.85vw, 1.35rem);
+  padding-top: clamp(1.05rem, 2.35vw, 1.75rem);
   padding-bottom: clamp(0.65rem, 1.75vw, 1.35rem);
 }
 
@@ -687,7 +687,7 @@ body.page-about-contact #contact h2 {
   right: max(0.55rem, env(safe-area-inset-right, 0px));
   /* Lift above section-inner bottom — larger bottom = higher on screen */
   bottom: clamp(2.25rem, 5.5vw, 4.5rem);
-  width: min(24.25rem, 46vw);
+  width: min(21rem, 40vw);
   max-width: 100%;
   /* Circular arch top */
   border-radius: 9999px 9999px 10px 10px;
@@ -758,7 +758,7 @@ body.page-about-contact #contact .contact-links a {
     position: relative;
     right: auto;
     bottom: auto;
-    width: min(17rem, 68vw);
+    width: min(15.25rem, 62vw);
     margin-top: 0.75rem;
     margin-left: auto;
     margin-right: clamp(-0.35rem, -1vw, 0);
@@ -803,7 +803,7 @@ body.page-about-contact #contact .contact-links a {
 
 body.page-about-contact #contact {
   margin-top: clamp(-5.85rem, -12vw, -3.85rem);
-  padding-top: clamp(0.4rem, 1.15vw, 0.85rem);
+  padding-top: clamp(0.95rem, 2.35vw, 1.65rem);
   padding-bottom: clamp(1.75rem, 5vw, 3.5rem);
   position: relative;
   z-index: 1;
@@ -1107,6 +1107,10 @@ body.project-wordmark-head-space .project-split__text:has(#strings-heading) {
 .project-split__text .project-split__body-text {
   margin-top: 1.15rem;
   text-align: left;
+}
+
+.project-split__text .project-split__body-text--strings {
+  margin-top: 0.55rem;
 }
 
 /* Delight + Tomato + Cr8Dig + Strings + HHC campaign copy — compact rail type */
@@ -2007,13 +2011,17 @@ body.project-wordmark-head-space .project-split__text:has(#strings-heading) {
   transform-origin: center top;
 }
 
-/* Strings wordmark (Time) — larger title in the text rail; top/bottom crop */
+/* Strings wordmark (Time) — title in the rail; tighter vertical rhythm + crop */
+.project-page--split .project-split__text #strings-heading.project-split__wordmark {
+  margin: -0.45rem 0 0.35rem;
+}
+
 .project-page--split .project-split__text #strings-heading.project-split__wordmark .project-split__wordmark-img {
   max-width: 100%;
   width: 100%;
-  transform: scale(1.14);
+  transform: scale(1.06);
   transform-origin: center top;
-  clip-path: inset(6% 0 6% 0);
+  clip-path: inset(8.5% 0 8.5% 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2039,7 +2047,7 @@ body.project-wordmark-head-space .project-split__text:has(#strings-heading) {
 
   /* Delight: slightly wider grid than the shared split column cap */
   .project-page.project-page--split .project-split__images:has(#delight-gallery) {
-    max-width: 55rem;
+    max-width: 53rem;
   }
 
   /* Tomato: wider media column so the hero box can grow horizontally */
